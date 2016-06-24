@@ -5,6 +5,8 @@
 [![MIT License](https://img.shields.io/npm/l/check-dependencies.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
         
+## Architecture
+![Search API Architecture](/doc/images/architecture-search-api.png)
 ## License
 [MIT](https://github.com/tblsoft/search-api/blob/master/LICENSE)
         
