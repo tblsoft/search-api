@@ -10,3 +10,10 @@
 ## License
 [MIT](https://github.com/tblsoft/search-api/blob/master/LICENSE)
         
+        
+## API Documentation
+### Filter
+- all 
+
+- by default multiple filter values for one property are connected by OR
+- to change the logic: filter.name.operator=AND

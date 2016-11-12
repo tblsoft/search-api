@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 public class TblCommand extends HystrixCommand<String> {
 
     public static void main(String[] args) throws Exception{
-        Future<String> s1 = new TblCommand("Bob", 100, 1000).queue();
+        Future<String> s1 = new TblCommand("Bob", 100, 10).queue();
         Future<String> s2 = new TblCommand("Alice", 100, 1000).queue();
 
         System.out.println(s1.get());
