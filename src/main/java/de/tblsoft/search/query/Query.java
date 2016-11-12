@@ -1,6 +1,9 @@
 package de.tblsoft.search.query;
 
+import com.google.common.base.Strings;
+
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by tblsoft on 11.11.16.
@@ -8,6 +11,8 @@ import java.util.List;
 public class Query {
 
     private String q;
+
+    private String requestId;
 
     private List<Filter> filterList;
 
@@ -17,23 +22,22 @@ public class Query {
 
     private int rows = 20;
 
-    void test() {
-        Filter f = new Filter();
-        //f.getValues().add("foo");
-
-        RangeFilterValue<Double> rfv = new RangeFilterValue<Double>();
-
-
-        rfv.setMaxValue(0.7);
-        rfv.setMinValue(0.2);
-
-        f.getValues().add(rfv);
-
-        List<RangeFilterValue> foo = f.getValues();
-
-
-        //filterList.add(f);
+    public String getQ() {
+        return q;
     }
 
+    public void setQ(String q) {
+        this.q = q;
+    }
 
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        if(Strings.isNullOrEmpty(requestId)) {
+            requestId = UUID.randomUUID().toString();
+        }
+        this.requestId = requestId;
+    }
 }

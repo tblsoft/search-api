@@ -1,5 +1,6 @@
 package de.tblsoft.search.app;
 
+import de.tblsoft.search.query.Query;
 import de.tblsoft.search.response.DidYouMeanResult;
 import de.tblsoft.search.response.Document;
 import de.tblsoft.search.response.SearchResponse;
@@ -15,7 +16,8 @@ public class SearchService {
 
 
     @RequestMapping("/search")
-    public SearchResponse index() {
+    public SearchResponse index(Query query) {
+        System.out.println(query.getQ());
 
         SearchResponse searchResponse = new SearchResponse();
         SearchResult sr1 = new SearchResult();
