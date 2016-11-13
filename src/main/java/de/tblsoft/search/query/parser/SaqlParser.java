@@ -24,6 +24,8 @@ public class SaqlParser {
         Query query = new Query();
         query.setQ(getParameter("q"));
         query.setRequestId(getParameter("requestId"));
+        query.setPage(getParameterAsInt("page",query.getPage()));
+        query.setRows(getParameterAsInt("rows",query.getRows()));
         return query;
 
     }
@@ -46,6 +48,35 @@ public class SaqlParser {
             throw new IllegalArgumentException("The parameter " + name + " must have exactly one value.");
         }
         return values[0];
+    }
+
+    String getParameter(String name, String defaultValue) {
+        String value = getParameter(name);
+        if(value == null) {
+            return defaultValue;
+        }
+        return value;
+    }
+
+    Integer getParameterAsInt(String name) {
+        String value = getParameter(name);
+        if(value == null) {
+            return null;
+        }
+        try {
+            Integer intValue = Integer.parseInt(value);
+            return intValue;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    Integer getParameterAsInt(String name, Integer defaultValue) {
+        Integer value = getParameterAsInt(name);
+        if(value == null) {
+            return defaultValue;
+        }
+        return value;
     }
 
 

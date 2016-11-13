@@ -24,10 +24,34 @@ public class SaqlParserTest {
     }
 
     @Test
+    public void testParameterPage() {
+        Query query = createQuery("page=5");
+        Assert.assertEquals(5, query.getPage());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testParameterPageInvalidValue() {
+        createQuery("page=foo");
+    }
+
+    @Test
+    public void testParameterRows() {
+        Query query = createQuery("rows=50");
+        Assert.assertEquals(50, query.getRows());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testParameterRowsInvalidValue() {
+        createQuery("rows=foo");
+    }
+
+    @Test
     public void testEmty() {
         Query query = createQuery();
         Assert.assertNull(query.getQ());
         Assert.assertNotNull(query.getRequestId());
+        Assert.assertEquals(1, query.getPage());
+        Assert.assertEquals(20, query.getRows());
     }
 
 
@@ -37,7 +61,7 @@ public class SaqlParserTest {
     }
 
     Query createQuery(String... parameters) {
-        Map<String,String[]> parameter = new HashMap<>();
+        Map<String,String[]> parameter = new HashMap<String,String[]>();
         for(String param: parameters) {
             String[] paramSplitted = param.split("=");
             addParameter(parameter,paramSplitted[0],paramSplitted[1]);
