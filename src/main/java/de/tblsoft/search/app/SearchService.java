@@ -18,6 +18,7 @@ public class SearchService {
     @RequestMapping("/search")
     public SearchResponse index(Query query) {
         System.out.println(query.getQ());
+        System.out.println(query.getRequestId());
 
         SearchResponse searchResponse = new SearchResponse();
         SearchResult sr1 = new SearchResult();

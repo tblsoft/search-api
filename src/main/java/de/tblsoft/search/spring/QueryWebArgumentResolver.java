@@ -1,6 +1,7 @@
 package de.tblsoft.search.spring;
 
 import de.tblsoft.search.query.Query;
+import de.tblsoft.search.query.SaqlParser;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -18,9 +19,8 @@ public class QueryWebArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
-        Query query = new Query();
-        query.setQ(nativeWebRequest.getParameter("q"));
-        query.setRequestId(nativeWebRequest.getParameter("requestId"));
+        SaqlParser saqlParser = new SaqlParser(nativeWebRequest.getParameterMap());
+        Query query = saqlParser.getQuery();
         return query;
     }
 }
