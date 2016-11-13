@@ -1,7 +1,7 @@
 package de.tblsoft.search.spring;
 
 import de.tblsoft.search.query.Query;
-import de.tblsoft.search.query.SaqlParser;
+import de.tblsoft.search.query.parser.SaqlParser;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
