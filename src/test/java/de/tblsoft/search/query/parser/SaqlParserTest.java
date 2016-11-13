@@ -1,6 +1,8 @@
 package de.tblsoft.search.query.parser;
 
+import de.tblsoft.search.query.Filter;
 import de.tblsoft.search.query.Query;
+import de.tblsoft.search.query.RangeFilterValue;
 import org.junit.*;
 
 import java.util.*;
@@ -58,6 +60,60 @@ public class SaqlParserTest {
     @Test(expected=IllegalArgumentException.class)
     public void testValidationForMultipleParameters() {
         createQuery("q=foo","q=bar");
+    }
+
+    @Test
+    public void testFilter() {
+        Query query = createQuery("f.foo=bar");
+        Filter<String> filter = query.getFilterList().get(0);
+        Assert.assertEquals(filter.getName(), "foo");
+        Assert.assertEquals(filter.getValues().get(0), "bar");
+    }
+
+    @Test
+    public void testFilterWithMultipleValues() {
+        Query query = createQuery("f.foo=bar", "f.foo=alice");
+        Filter<String> filter = query.getFilterList().get(0);
+        Assert.assertEquals("foo",filter.getName());
+        Assert.assertEquals("bar", filter.getValues().get(0));
+        Assert.assertEquals("alice",filter.getValues().get(1));
+    }
+
+    @Test
+    public void testRangeFilterForDoubleValues() {
+        Query query = createQuery("f.foo.range=0.1,5.2");
+        Filter<RangeFilterValue<Double>> filter = query.getFilterList().get(0);
+        Assert.assertEquals("foo", filter.getName());
+        Assert.assertEquals(Double.valueOf(0.1), filter.getValues().get(0).getMinValue());
+        Assert.assertEquals(Double.valueOf(5.2), filter.getValues().get(0).getMaxValue());
+    }
+
+    @Test
+    public void testRangeFilterForLongValues() {
+        Query query = createQuery("f.foo.range=3,5");
+        Filter<RangeFilterValue<Double>> filter = query.getFilterList().get(0);
+        Assert.assertEquals("foo", filter.getName());
+        Assert.assertEquals(Double.valueOf(3.0), filter.getValues().get(0).getMinValue());
+        Assert.assertEquals(Double.valueOf(5.0), filter.getValues().get(0).getMaxValue());
+    }
+
+    @Test
+    public void testRangeFilterForMinMaxValues() {
+        Query query = createQuery("f.foo.range=min,max");
+        Filter<RangeFilterValue<Double>> filter = query.getFilterList().get(0);
+        Assert.assertEquals("foo", filter.getName());
+        Assert.assertEquals(Double.valueOf(Double.MIN_VALUE), filter.getValues().get(0).getMinValue());
+        Assert.assertEquals(Double.valueOf(Double.MAX_VALUE), filter.getValues().get(0).getMaxValue());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testRangeFilterWithWrongDelimiter() {
+        createQuery("f.foo.range=0.1-5.2");
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testRangeFilterWithWrongValue() {
+        createQuery("f.foo.range=0.1,bar");
     }
 
     Query createQuery(String... parameters) {

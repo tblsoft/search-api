@@ -1,5 +1,6 @@
 package de.tblsoft.search.query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class Query {
 
     private String requestId;
 
-    private List<Filter> filterList;
+    private List<Filter> filterList = new ArrayList<>();
 
     private Sort sort;
 
@@ -49,5 +50,13 @@ public class Query {
 
     public void setRows(int rows) {
         this.rows = rows;
+    }
+
+    public List<Filter> getFilterList() {
+        return filterList;
+    }
+
+    public void setFilterList(List<Filter> filterList) {
+        this.filterList = filterList;
     }
 }

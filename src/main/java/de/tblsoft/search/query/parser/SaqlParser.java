@@ -1,15 +1,21 @@
 package de.tblsoft.search.query.parser;
 
+import com.google.common.base.Strings;
+import de.tblsoft.search.query.Filter;
 import de.tblsoft.search.query.Query;
+import de.tblsoft.search.query.RangeFilterValue;
 import org.apache.commons.lang.ArrayUtils;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by tblsoft on 13.11.16.
  */
 public class SaqlParser {
+
+    private static final Pattern filterPattern = Pattern.compile("f\\.([^\\.]+)(.*)");
 
 
     private Map<String, String[]> parameters;
@@ -27,9 +33,64 @@ public class SaqlParser {
         query.setRequestId(getParameter("requestId", UUID.randomUUID().toString()));
         query.setPage(getParameterAsInt("page", query.getPage()));
         query.setRows(getParameterAsInt("rows", query.getRows()));
+
+        parseFilter(query);
         return query;
 
     }
+
+    void parseFilter(Query query) {
+        for(String name: getParameterNames()) {
+            Matcher m = filterPattern.matcher(name);
+            if(m.matches()) {
+                String filterName = m.group(1);
+                String[] filterValues = parameters.get(name);
+                String filterType = m.group(2);
+                if(Strings.isNullOrEmpty(filterType)) {
+                    Filter<String> filter = new Filter<>();
+                    filter.setName(filterName);
+                    filter.setValues(Arrays.asList(filterValues));
+                    query.getFilterList().add(filter);
+                } else if (".range".equals(filterType)) {
+                    Filter<RangeFilterValue<Number>> filter = new Filter<>();
+                    RangeFilterValue<Number> rangeFilterValue = new RangeFilterValue<>();
+                    for(String value : filterValues) {
+                        String[] valueSplitted = value.split(Pattern.quote(","));
+                        if(valueSplitted.length != 2) {
+                            throw new IllegalArgumentException("The value of a range filter must be in the format parameter=v1-v2");
+                        }
+                        String min = valueSplitted[0];
+                        String max = valueSplitted[1];
+                        try {
+                            if (min.equals("min")) {
+                                rangeFilterValue.setMinValue(Double.MIN_VALUE);
+                            } else {
+                                rangeFilterValue.setMinValue(Double.valueOf(min));
+                            }
+
+                            if (max.equals("max")) {
+                                rangeFilterValue.setMaxValue(Double.MAX_VALUE);
+                            } else {
+                                rangeFilterValue.setMaxValue(Double.valueOf(max));
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new IllegalArgumentException("The min value " + min + " or max value " + max + " is no number value.");
+                        }
+                    }
+
+
+
+
+                    filter.setName(filterName);
+                    filter.getValues().add(rangeFilterValue);
+                    query.getFilterList().add(filter);
+                }
+
+            }
+        }
+
+    }
+
 
     public Query getQuery() {
         if(this.query == null) {
@@ -78,6 +139,10 @@ public class SaqlParser {
             return defaultValue;
         }
         return value;
+    }
+
+    Set<String> getParameterNames() {
+        return this.parameters.keySet();
     }
 
 
