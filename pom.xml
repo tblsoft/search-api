@@ -81,16 +81,10 @@
                     <instrumentation>
                         <ignoreTrivial>true</ignoreTrivial>
                         <ignores>
-                            <ignore>de.tblsoft.solr.log.parser.*</ignore>
-                            <ignore>de.tblsoft.solr.bean.*</ignore>
-                            <ignore>de.tblsoft.solr.cmd.*</ignore>
-                            <ignore>de.tblsoft.solr.logic.*</ignore>
+                            <ignore>de.tblsoft.search.spring.*</ignore>
                         </ignores>
                         <excludes>
-                            <exclude>de/tblsoft/solr/log/parser/**/*.class</exclude>
-                            <exclude>de/tblsoft/solr/bean/**/*.class</exclude>
-                            <exclude>de/tblsoft/solr/cmd/**/*.class</exclude>
-                            <exclude>de/tblsoft/solr/logic/**/*.class</exclude>
+                            <exclude>de/tblsoft/search/spring/**/*.class</exclude>
                         </excludes>
                     </instrumentation>
                 </configuration>
