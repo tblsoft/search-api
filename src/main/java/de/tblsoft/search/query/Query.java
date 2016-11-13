@@ -1,9 +1,6 @@
 package de.tblsoft.search.query;
 
-import com.google.common.base.Strings;
-
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by tblsoft on 11.11.16.
@@ -35,9 +32,6 @@ public class Query {
     }
 
     public void setRequestId(String requestId) {
-        if(Strings.isNullOrEmpty(requestId)) {
-            requestId = UUID.randomUUID().toString();
-        }
         this.requestId = requestId;
     }
 

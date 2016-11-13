@@ -4,6 +4,7 @@ import de.tblsoft.search.query.Query;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by tblsoft on 13.11.16.
@@ -23,9 +24,9 @@ public class SaqlParser {
     Query parse() {
         Query query = new Query();
         query.setQ(getParameter("q"));
-        query.setRequestId(getParameter("requestId"));
-        query.setPage(getParameterAsInt("page",query.getPage()));
-        query.setRows(getParameterAsInt("rows",query.getRows()));
+        query.setRequestId(getParameter("requestId", UUID.randomUUID().toString()));
+        query.setPage(getParameterAsInt("page", query.getPage()));
+        query.setRows(getParameterAsInt("rows", query.getRows()));
         return query;
 
     }
