@@ -10,26 +10,42 @@ import java.util.*;
  */
 public class SaqlParserTest {
 
+
+    @Test
+    public void testParameterQ() {
+        Query query = createQuery("q=foo");
+        Assert.assertEquals("foo", query.getQ());
+    }
+
+    @Test
+    public void testParameterRequestId() {
+        Query query = createQuery("requestId=0815");
+        Assert.assertEquals("0815", query.getRequestId());
+    }
+
     @Test
     public void testEmty() {
-        Map<String,String[]> emtyParameter = new HashMap<>();
-        SaqlParser saqlParser = new SaqlParser(emtyParameter);
-        Query query = saqlParser.getQuery();
+        Query query = createQuery();
+        Assert.assertNull(query.getQ());
         Assert.assertNotNull(query.getRequestId());
     }
 
 
     @Test(expected=IllegalArgumentException.class)
     public void testValidationForMultipleParameters() {
-        Map<String,String[]> parameter = new HashMap<>();
-        addParameter(parameter,"q","foo");
-        addParameter(parameter,"q","bar");
-
-        SaqlParser saqlParser = new SaqlParser(parameter);
-        saqlParser.getQuery();
-
+        createQuery("q=foo","q=bar");
     }
 
+    Query createQuery(String... parameters) {
+        Map<String,String[]> parameter = new HashMap<>();
+        for(String param: parameters) {
+            String[] paramSplitted = param.split("=");
+            addParameter(parameter,paramSplitted[0],paramSplitted[1]);
+        }
+        SaqlParser saqlParser = new SaqlParser(parameter);
+        Query query = saqlParser.getQuery();
+        return query;
+    }
 
     void addParameter(Map<String,String[]> parameter, String name, String value) {
         String[] values = parameter.get(name);
