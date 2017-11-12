@@ -3,7 +3,7 @@ package de.tblsoft.search.response;
 /**
  * Created by tblsoft on 11.11.16.
  */
-public class DidYouMeanResult implements Result{
+public class DidYouMeanResult {
 
     private String name;
 
