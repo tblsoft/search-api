@@ -1,11 +1,14 @@
 package de.tblsoft.search.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by tblsoft on 11.11.16.
+ * Created by tbl on 11.11.16.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SearchResult{
 
     private Object rawResponse;
@@ -19,6 +22,16 @@ public class SearchResult{
     private List<Document> documents = new ArrayList<>();
 
     private Long time;
+
+    private String debug;
+
+    private Long total;
+
+    private Long page;
+
+    private Float maxScore;
+
+    private List<Facet> facets = new ArrayList<>();
 
 
     public String getName() {
@@ -67,5 +80,71 @@ public class SearchResult{
 
     public void setTime(Long time) {
         this.time = time;
+    }
+
+    public String getDebug() {
+        return debug;
+    }
+
+    public void setDebug(String debug) {
+        this.debug = debug;
+    }
+
+    public void debug(String message) {
+        if(this.debug == null) {
+            this.debug = message;
+            return;
+        }
+
+        this.debug = " " + message;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
+    public Long getPage() {
+        return page;
+    }
+
+    public void setPage(Long page) {
+        this.page = page;
+    }
+
+    public Float getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(Float maxScore) {
+        this.maxScore = maxScore;
+    }
+
+    public List<Facet> getFacets() {
+        return facets;
+    }
+
+    public void setFacets(List<Facet> facets) {
+        this.facets = facets;
+    }
+
+    @Override
+    public String toString() {
+        return "SearchResult{" +
+                "rawResponse=" + rawResponse +
+                ", statusCode=" + statusCode +
+                ", name='" + name + '\'' +
+                ", statusMessage='" + statusMessage + '\'' +
+                ", documents=" + documents +
+                ", time=" + time +
+                ", debug='" + debug + '\'' +
+                ", total=" + total +
+                ", page=" + page +
+                ", maxScore=" + maxScore +
+                ", facets=" + facets +
+                '}';
     }
 }

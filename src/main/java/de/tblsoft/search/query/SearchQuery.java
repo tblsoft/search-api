@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by tblsoft on 11.11.16.
+ * Created by tbl on 11.11.16.
  */
-public class Query {
+public class SearchQuery {
 
     private String q;
 

@@ -14,7 +14,7 @@ public interface Filter {
     void setPipelineId(String id);
     void init();
 
-    PipelineContainer filter(PipelineContainer searchRequest);
+    PipelineContainer filter(PipelineContainer pipelineContainer);
 
     void end();
 }

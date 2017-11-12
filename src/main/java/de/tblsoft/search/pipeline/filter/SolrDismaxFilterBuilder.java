@@ -19,6 +19,12 @@ public class SolrDismaxFilterBuilder {
         return this;
     }
 
+    public SolrDismaxFilterBuilder param(String name, String value) {
+        solrDismaxFilter.addParam(name,value);
+        return this;
+    }
+
+
     public SolrDismaxFilterBuilder pf(String pf) {
         solrDismaxFilter.setPf(pf);
         return this;
@@ -35,5 +41,19 @@ public class SolrDismaxFilterBuilder {
     }
     public SolrDismaxFilter build() {
         return solrDismaxFilter;
+    }
+
+    public SolrDismaxFilterBuilder mapField(String from, String to) {
+        solrDismaxFilter.addFieldMapping(from, to);
+        return this;
+    }
+
+    public SolrDismaxFilterBuilder mapFacet(String from, String to) {
+        solrDismaxFilter.addFacetMapping(from, to);
+        return this;
+    }
+    public SolrDismaxFilterBuilder mapFacetName(String from, String to) {
+        solrDismaxFilter.addFacetNameMapping(from, to);
+        return this;
     }
 }

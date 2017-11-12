@@ -1,25 +1,28 @@
 package de.tblsoft.search.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by tblsoft on 11.11.16.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SearchResponse {
 
-    private String statusCode = "200";
+    private Integer statusCode = 200;
 
     private Map<String, SearchResult> result = new HashMap<>();
 
     private long time;
 
 
-    public String getStatusCode() {
+    public Integer getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(String statusCode) {
+    public void setStatusCode(Integer statusCode) {
         this.statusCode = statusCode;
     }
 
@@ -38,4 +41,5 @@ public class SearchResponse {
     public void setTime(long time) {
         this.time = time;
     }
+
 }

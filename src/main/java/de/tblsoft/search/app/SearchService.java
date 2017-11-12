@@ -1,6 +1,7 @@
 package de.tblsoft.search.app;
 
 import de.tblsoft.search.pipeline.*;
+import de.tblsoft.search.pipeline.filter.QSQLRequestFilter;
 import de.tblsoft.search.pipeline.filter.SolrDismaxFilterBuilder;
 import de.tblsoft.search.response.SearchResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class SearchService {
 
         Pipeline pipeline = PipelineBuilder.create().
             pipeline("pipelineId").
+                filter(new QSQLRequestFilter()).
                 parallel().
                     pipeline("foo").
                         filter(SolrDismaxFilterBuilder.create().
@@ -28,12 +30,20 @@ public class SearchService {
                             qf("foo^5 bar^6").
                             pf("aadfa adfa afdsf adf").
                             resultSetId("channel1").
+                            param("facet", "true").
+                            param("facet.field", "cat").
+                            mapField("cat", "category").
+                            mapField("author", "author").
+                            mapField("id", "id").
+                            mapFacet("cat", "category").
+                            mapFacetName("category", "Kategorie").
                             build()).
                     pipeline("bar").
                         filter(SolrDismaxFilterBuilder.create().
-                            baseUrl("http://localhost:8983/solr/gettingstarted2").
+                            baseUrl("http://localhost:8983/solr/gettingstarted").
                             qf("foo^5 bar^6").
                             pf("aadfa adfa afdsf adf").
+                            mapField("cat", "category").
                             resultSetId("channel2").
                             build()).
                 sequential().
@@ -42,9 +52,6 @@ public class SearchService {
 
 
         PipelineContainer pipelineContainer = new PipelineContainer(request, response);
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.setQ(request.getParameter("q"));
-        pipelineContainer.setSearchRequests(searchRequest);
         PipelineExecuter executer = new PipelineExecuter(pipeline);
         pipelineContainer = executer.execute(pipelineContainer);
 

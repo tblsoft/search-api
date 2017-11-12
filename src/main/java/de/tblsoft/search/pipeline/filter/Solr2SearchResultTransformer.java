@@ -2,8 +2,11 @@ package de.tblsoft.search.pipeline.filter;
 
 import com.google.common.base.Strings;
 import de.tblsoft.search.response.Document;
+import de.tblsoft.search.response.Facet;
+import de.tblsoft.search.response.FacetValue;
 import de.tblsoft.search.response.SearchResult;
 import de.tblsoft.search.solr.SearchResultTransformerIF;
+import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 
@@ -17,6 +20,8 @@ import java.util.Map;
 public class Solr2SearchResultTransformer implements SearchResultTransformerIF {
 
     private Map<String, String> fieldMapping = new HashMap<>();
+    private Map<String, String> facetMapping = new HashMap<>();
+    private Map<String, String> facetNameMapping = new HashMap<>();
 
     public Solr2SearchResultTransformer() {
 
@@ -25,6 +30,8 @@ public class Solr2SearchResultTransformer implements SearchResultTransformerIF {
 
     public SearchResult transform(QueryResponse queryResponse) {
         SearchResult result = new SearchResult();
+        result.setTotal(queryResponse.getResults().getNumFound());
+        result.setMaxScore(queryResponse.getResults().getMaxScore());
         Iterator<SolrDocument> solrDocumentIterator = queryResponse.getResults().iterator();
         while(solrDocumentIterator.hasNext()) {
             SolrDocument solrDocument = solrDocumentIterator.next();
@@ -32,7 +39,36 @@ public class Solr2SearchResultTransformer implements SearchResultTransformerIF {
             result.getDocuments().add(document);
         }
 
+        mapFacets(queryResponse, result);
+
+
         return result;
+    }
+
+    void mapFacets(QueryResponse queryResponse, SearchResult searchResult) {
+        if(queryResponse.getFacetFields() == null) {
+            return;
+        }
+
+        for(FacetField facetField : queryResponse.getFacetFields()) {
+            Facet facet = new Facet();
+
+            String id = facetMapping.get(facetField.getName());
+            facet.setId(id);
+
+            String name = facetNameMapping.get(id);
+            facet.setName(name);
+
+
+            for(FacetField.Count count: facetField.getValues()) {
+                FacetValue facetValue = new FacetValue(count.getName(), count.getCount());
+
+                // TODO encode the value
+                facetValue.setFilter(id + "=" + count.getName());
+                facet.getValues().add(facetValue);
+            }
+            searchResult.getFacets().add(facet);
+        }
     }
 
     public Document transformDocument(SolrDocument solrDocument) {
@@ -55,5 +91,13 @@ public class Solr2SearchResultTransformer implements SearchResultTransformerIF {
 
     public void setFieldMapping(Map<String, String> fieldMapping) {
         this.fieldMapping = fieldMapping;
+    }
+
+    public void setFacetMapping(Map<String, String> facetMapping) {
+        this.facetMapping = facetMapping;
+    }
+
+    public void setFacetNameMapping(Map<String, String> facetNameMapping) {
+        this.facetNameMapping = facetNameMapping;
     }
 }

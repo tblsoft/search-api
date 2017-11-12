@@ -32,7 +32,7 @@ public class SolrClientWrapper {
 
 
 
-    static String query2url(String solrBase, SolrQuery solrQuery) {
+    public static String query2url(String solrBase, SolrQuery solrQuery) {
         Map<String,String[]> parameters = solrQuery.getMap();
         String requestHandler = Optional.fromNullable(solrQuery.getRequestHandler()).or("select");
         StringBuilder url = new StringBuilder(solrBase);

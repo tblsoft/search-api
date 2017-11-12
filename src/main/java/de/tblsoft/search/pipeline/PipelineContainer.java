@@ -1,5 +1,6 @@
 package de.tblsoft.search.pipeline;
 
+import de.tblsoft.search.query.SearchQuery;
 import de.tblsoft.search.response.SearchResult;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class PipelineContainer {
         this.response = response;
     }
 
-    private SearchRequest searchRequests;
+    private SearchQuery searchQuery;
     private Map<String, SearchResult> searchResults = new HashMap<>();
 
     private Map<String, ?> context = new HashMap<>();
@@ -30,14 +31,12 @@ public class PipelineContainer {
 
     private long startTime;
 
-    private long endTime;
-
-    public SearchRequest getSearchRequests() {
-        return searchRequests;
+    public SearchQuery getSearchQuery() {
+        return searchQuery;
     }
 
-    public void setSearchRequests(SearchRequest searchRequests) {
-        this.searchRequests = searchRequests;
+    public void setSearchQuery(SearchQuery searchQuery) {
+        this.searchQuery = searchQuery;
     }
 
     public SearchResult getSearchResponse(String name) {
@@ -65,12 +64,18 @@ public class PipelineContainer {
         return System.currentTimeMillis() - this.startTime;
     }
 
+    public HttpServletRequest getRequest() {
+        return request;
+    }
 
+    public HttpServletResponse getResponse() {
+        return response;
+    }
 
     @Override
     public String toString() {
         return "PipelineContainer{" +
-                "\nsearchRequests=" + searchRequests +
+                "\nsearchQuery=" + searchQuery +
                 "\n, searchResponses=" + searchResults +
                 "\n, context=" + context +
                 '}';

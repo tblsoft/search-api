@@ -2,7 +2,7 @@ package de.tblsoft.search.query.parser;
 
 import com.google.common.base.Strings;
 import de.tblsoft.search.query.Filter;
-import de.tblsoft.search.query.Query;
+import de.tblsoft.search.query.SearchQuery;
 import de.tblsoft.search.query.RangeFilterValue;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -20,15 +20,15 @@ public class SaqlParser {
 
     private Map<String, String[]> parameters;
 
-    private Query query = null;
+    private SearchQuery query = null;
 
     public SaqlParser(Map<String, String[]> parameters) {
         this.parameters = parameters;
     }
 
 
-    Query parse() {
-        Query query = new Query();
+    SearchQuery parse() {
+        SearchQuery query = new SearchQuery();
         query.setQ(getParameter("q"));
         query.setRequestId(getParameter("requestId", UUID.randomUUID().toString()));
         query.setPage(getParameterAsInt("page", query.getPage()));
@@ -40,7 +40,7 @@ public class SaqlParser {
 
     }
 
-    void parseFilter(Query query) {
+    void parseFilter(SearchQuery query) {
         for(String name: getParameterNames()) {
             Matcher m = filterPattern.matcher(name);
             if(m.matches()) {
@@ -93,7 +93,7 @@ public class SaqlParser {
     }
 
 
-    public Query getQuery() {
+    public SearchQuery getQuery() {
         if(this.query == null) {
             this.query = parse();
         }
