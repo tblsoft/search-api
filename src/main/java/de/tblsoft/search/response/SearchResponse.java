@@ -10,7 +10,9 @@ public class SearchResponse {
 
     private String statusCode = "200";
 
-    private Map<String, Result> result = new HashMap<>();
+    private Map<String, SearchResult> result = new HashMap<>();
+
+    private long time;
 
 
     public String getStatusCode() {
@@ -21,11 +23,19 @@ public class SearchResponse {
         this.statusCode = statusCode;
     }
 
-    public Map<String, Result> getResult() {
+    public Map<String, SearchResult> getResult() {
         return result;
     }
 
-    public void setResult(Map<String, Result> result) {
+    public void setResult(Map<String, SearchResult> result) {
         this.result = result;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

@@ -1,0 +1,27 @@
+name: "search configuration for client tblsoft"
+tenant: "tblsoft"
+id: "tblsoft"
+
+
+
+channel:
+  - name: "product search"
+    id: "product-search"
+    disabled: false
+    baseUrl: "http://localhost:8081/solr-multicore/medimops-test"
+    queryParameter:
+      - "qt=dismax"
+    fieldMapping:
+      - "price_range_s -> price_range"
+      - "category -> category"
+    property:
+      fieldWhiteList:
+        - "articleTitle_text_de_de"
+  - name: "suggest keywords"
+    id: "suggest-keywords"
+    baseUrl: "http://localhost:8081/solr-multicore/tblsoft-test"
+    property:
+      outputFileName: "extracted-nouns.csv"
+  - name: "suggest keywords disabled"
+    id: "suggest-keywords-disabled"
+    disabled: true

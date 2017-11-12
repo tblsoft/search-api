@@ -20,6 +20,8 @@ public class Query {
 
     private int rows = 20;
 
+    private boolean debug = false;
+
     public String getQ() {
         return q;
     }
@@ -58,5 +60,13 @@ public class Query {
 
     public void setFilterList(List<Filter> filterList) {
         this.filterList = filterList;
+    }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
     }
 }

@@ -8,13 +8,13 @@ import java.util.Map;
  */
 public class Document {
 
-    private Map<String,String> document = new HashMap<>();
+    private Map<String, Object> document = new HashMap<>();
 
-    public Map<String, String> getDocument() {
+    public Map<String, Object> getDocument() {
         return document;
     }
 
-    public void setDocument(Map<String, String> document) {
+    public void setDocument(Map<String, Object> document) {
         this.document = document;
     }
 }

@@ -33,6 +33,7 @@ public class SaqlParser {
         query.setRequestId(getParameter("requestId", UUID.randomUUID().toString()));
         query.setPage(getParameterAsInt("page", query.getPage()));
         query.setRows(getParameterAsInt("rows", query.getRows()));
+        query.setDebug(getParameterAsBoolean("debug", query.isDebug()));
 
         parseFilter(query);
         return query;
@@ -135,6 +136,25 @@ public class SaqlParser {
 
     Integer getParameterAsInt(String name, Integer defaultValue) {
         Integer value = getParameterAsInt(name);
+        if(value == null) {
+            return defaultValue;
+        }
+        return value;
+    }
+
+    Boolean getParameterAsBoolean(String name) {
+        String value = getParameter(name);
+        if("true".equals(value)) {
+            return Boolean.TRUE;
+        }
+        if("false".equals(value)) {
+            return Boolean.FALSE;
+        }
+        return null;
+    }
+
+    Boolean getParameterAsBoolean(String name, Boolean defaultValue) {
+        Boolean value = getParameterAsBoolean(name);
         if(value == null) {
             return defaultValue;
         }
