@@ -23,10 +23,13 @@ public class PipelineExecuter {
 
 
         for(Filter filter : pipeline.getFilterList()) {
-            long start = System.currentTimeMillis();
-            filter.setStartTime(start);
-            pipelineContainer = filter.filter(pipelineContainer);
-            long end = System.currentTimeMillis() - start;
+            try {
+                long start = System.currentTimeMillis();
+                filter.setStartTime(start);
+                pipelineContainer = filter.filter(pipelineContainer);
+            } catch (Exception e) {
+                filter.onError(pipelineContainer, e);
+            }
         }
 
 

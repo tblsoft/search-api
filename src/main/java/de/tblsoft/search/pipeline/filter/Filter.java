@@ -14,7 +14,9 @@ public interface Filter {
     void setPipelineId(String id);
     void init();
 
-    PipelineContainer filter(PipelineContainer pipelineContainer);
+    PipelineContainer filter(PipelineContainer pipelineContainer) throws Exception;
+
+    PipelineContainer onError(PipelineContainer pipelineContainer, Exception e);
 
     void end();
 }

@@ -3,6 +3,7 @@ package de.tblsoft.search.app;
 import de.tblsoft.search.pipeline.*;
 import de.tblsoft.search.pipeline.filter.QSQLRequestFilter;
 import de.tblsoft.search.pipeline.filter.SolrDismaxFilterBuilder;
+import de.tblsoft.search.pipeline.filter.SolrFilterBuilder;
 import de.tblsoft.search.response.SearchResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,7 @@ public class SearchService {
                             pf("aadfa adfa afdsf adf").
                             resultSetId("channel1").
                             param("facet", "true").
+                            param("facet.mincount", "1").
                             param("facet.field", "cat").
                             mapField("cat", "category").
                             mapField("author", "author").
@@ -45,6 +47,16 @@ public class SearchService {
                             pf("aadfa adfa afdsf adf").
                             mapField("cat", "category").
                             resultSetId("channel2").
+                            build()).
+                    pipeline("bar2").
+                        filter(SolrFilterBuilder.create().
+                            baseUrl("http://localhost:8983/solr/gettingstarted").
+                            param("q","${q}").
+                            param("facet","true").
+                            param("facet.mincount","1").
+                            param("facet.field","cat").
+                            param("channel","channel3").
+                            resultSetId("channel3").
                             build()).
                 sequential().
                 build();

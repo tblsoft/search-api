@@ -32,7 +32,7 @@ public class SolrDismaxFilter extends AbstractFilter {
 
 
     @Override
-    public PipelineContainer filter(PipelineContainer pipelineContainer) {
+    public PipelineContainer filter(PipelineContainer pipelineContainer) throws Exception {
         SearchQuery searchQuery = pipelineContainer.getSearchQuery();
         SolrQuery solrQuery = new SolrQuery(searchQuery.getQ());
 
@@ -42,36 +42,35 @@ public class SolrDismaxFilter extends AbstractFilter {
             solrQuery.add(parameter.getKey(),valuesArray);
         }
 
+        QueryResponse solrResponse = SolrClientWrapper.execute(solrQuery, solrBaseUrl);
 
-        try {
-            QueryResponse solrResponse = SolrClientWrapper.execute(solrQuery, solrBaseUrl);
+        Solr2SearchResultMappingTransformer transformer = new Solr2SearchResultMappingTransformer();
 
-            Solr2SearchResultTransformer transformer = new Solr2SearchResultTransformer();
+        transformer.setFieldMapping(fieldMapping);
+        transformer.setFacetMapping(facetMapping);
+        transformer.setFacetNameMapping(facetNameMapping);
 
-            transformer.setFieldMapping(fieldMapping);
-            transformer.setFacetMapping(facetMapping);
-            transformer.setFacetNameMapping(facetNameMapping);
+        SearchResult searchResult = transformer.transform(solrResponse);
+        searchResult.setTime(getCurrentTime());
+        searchResult.setStatusCode(200);
+        searchResult.setStatusMessage("OK");
 
-            SearchResult searchResult = transformer.transform(solrResponse);
-            searchResult.setTime(getCurrentTime());
-            searchResult.setStatusCode(200);
-            searchResult.setStatusMessage("OK");
+        searchResult.debug(SolrClientWrapper.query2url(solrBaseUrl, solrQuery));
+        //searchResult.setRawResponse(solrResponse);
+        pipelineContainer.putSearchResponse(resultSetId, searchResult);
 
-            searchResult.debug(SolrClientWrapper.query2url(solrBaseUrl, solrQuery));
-            //searchResult.setRawResponse(solrResponse);
-            pipelineContainer.putSearchResponse(resultSetId, searchResult);
+        return pipelineContainer;
+    }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            SearchResult searchResult = new SearchResult();
-            searchResult.setStatusMessage(e.getMessage());
-            searchResult.setStatusCode(500);
-            searchResult.debug(SolrClientWrapper.query2url(solrBaseUrl, solrQuery));
-            searchResult.setTime(getCurrentTime());
-            pipelineContainer.putSearchResponse(resultSetId, searchResult);
-        }
-
-
+    @Override
+    public PipelineContainer onError(PipelineContainer pipelineContainer, Exception e) {
+        e.printStackTrace();
+        SearchResult searchResult = new SearchResult();
+        searchResult.setStatusMessage(e.getMessage());
+        searchResult.setStatusCode(500);
+        //searchResult.debug(SolrClientWrapper.query2url(solrBaseUrl, solrQuery));
+        searchResult.setTime(getCurrentTime());
+        pipelineContainer.putSearchResponse(resultSetId, searchResult);
         return pipelineContainer;
     }
 

@@ -1,5 +1,7 @@
 package de.tblsoft.search.pipeline.filter;
 
+import de.tblsoft.search.pipeline.PipelineContainer;
+
 /**
  * Created by tbl on 04.11.17.
  */
@@ -36,5 +38,11 @@ public abstract class AbstractFilter implements Filter {
     @Override
     public long getCurrentTime() {
         return System.currentTimeMillis() - this.startTime;
+    }
+
+    @Override
+    public PipelineContainer onError(PipelineContainer pipelineContainer, Exception e) {
+        e.printStackTrace();
+        return pipelineContainer;
     }
 }

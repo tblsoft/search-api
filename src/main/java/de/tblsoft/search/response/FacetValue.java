@@ -1,8 +1,11 @@
 package de.tblsoft.search.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Created by tbl on 12.11.17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FacetValue {
 
     public FacetValue(String value, Long count) {

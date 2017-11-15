@@ -39,7 +39,7 @@ public class ParallelFilter extends AbstractFilter {
     }
 
     @Override
-    public PipelineContainer filter(PipelineContainer pipelineContainer) {
+    public PipelineContainer filter(PipelineContainer pipelineContainer) throws Exception {
         List<FutureTask<PipelineContainer>> futureTaskList = new ArrayList<>();
 
         for(Pipeline pipeline: pipelines) {
@@ -65,13 +65,5 @@ public class ParallelFilter extends AbstractFilter {
         // TODO merge searchRequest object
 
         return pipelineContainer;
-    }
-
-
-    PipelineContainer executeParallelFilter(Filter filter, PipelineContainer searchRequest) {
-        filter.init();
-        searchRequest = filter.filter(searchRequest);
-        filter.end();
-        return searchRequest;
     }
 }
