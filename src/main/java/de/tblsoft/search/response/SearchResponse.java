@@ -2,6 +2,7 @@ package de.tblsoft.search.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ public class SearchResponse {
     private Map<String, SearchResult> result = new HashMap<>();
 
     private long time;
+
+    private Date currentTime = new Date();
 
 
     public Integer getStatusCode() {
@@ -42,4 +45,11 @@ public class SearchResponse {
         this.time = time;
     }
 
+    public Date getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(Date currentTime) {
+        this.currentTime = currentTime;
+    }
 }
