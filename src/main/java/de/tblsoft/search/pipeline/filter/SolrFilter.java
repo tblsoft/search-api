@@ -3,7 +3,7 @@ package de.tblsoft.search.pipeline.filter;
 import de.tblsoft.search.pipeline.PipelineContainer;
 import de.tblsoft.search.response.SearchResult;
 import de.tblsoft.search.solr.SolrClientWrapper;
-import org.apache.commons.lang.text.StrSubstitutor;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
 

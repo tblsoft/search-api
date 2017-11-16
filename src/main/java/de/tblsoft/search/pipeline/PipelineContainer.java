@@ -29,7 +29,7 @@ public class PipelineContainer {
     private HttpServletRequest request;
     private HttpServletResponse response;
 
-    private long startTime;
+    private Long startTime;
 
     public SearchQuery getSearchQuery() {
         return searchQuery;
@@ -57,7 +57,9 @@ public class PipelineContainer {
     }
 
     public void start() {
-        this.startTime = System.currentTimeMillis();
+        if(this.startTime == null) {
+            this.startTime = System.currentTimeMillis();
+        }
     }
 
     public long currentTime() {

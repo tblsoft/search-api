@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 import de.tblsoft.search.query.Filter;
 import de.tblsoft.search.query.SearchQuery;
 import de.tblsoft.search.query.RangeFilterValue;
-import org.apache.commons.lang.ArrayUtils;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -103,7 +102,7 @@ public class SaqlParser {
     String getParameter(String name) {
         String[] values = this.parameters.get(name);
 
-        if(ArrayUtils.isEmpty(values)) {
+        if(values == null || values.length == 0) {
             return null;
         }
 
