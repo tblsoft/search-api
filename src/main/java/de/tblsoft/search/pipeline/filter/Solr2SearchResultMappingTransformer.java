@@ -100,4 +100,15 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
     public void setFacetNameMapping(Map<String, String> facetNameMapping) {
         this.facetNameMapping = facetNameMapping;
     }
+
+    public void addFieldMapping(String from, String to) {
+        fieldMapping.put(from, to);
+    }
+    public void addFacetMapping(String from, String to) {
+        facetMapping.put(from, to);
+    }
+
+    public void addFacetNameMapping(String from, String to) {
+        facetNameMapping.put(from, to);
+    }
 }

@@ -1,6 +1,6 @@
 package de.tblsoft.search.solr;
 
-import de.tblsoft.search.query.SearchQuery;
+import de.tblsoft.search.pipeline.PipelineContainer;
 import org.apache.solr.client.solrj.SolrQuery;
 
 /**
@@ -9,5 +9,5 @@ import org.apache.solr.client.solrj.SolrQuery;
 public interface QueryTransformerIF {
 
 
-    public SolrQuery transform(SearchQuery query);
+    SolrQuery transform(PipelineContainer pipelineContainer);
 }
