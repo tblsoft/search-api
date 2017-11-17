@@ -19,10 +19,13 @@ public class SolrParameterQueryTransformer implements QueryTransformerIF {
         SolrQuery solrQuery = new SolrQuery();
 
         Map<String, String> replaceMap = new HashMap<>();
-        Enumeration<String> parameterName = pipelineContainer.getRequest().getParameterNames();
-        while(parameterName.hasMoreElements()) {
-            String name = parameterName.nextElement();
-            replaceMap.put(name, pipelineContainer.getRequest().getParameter(name));
+
+        synchronized (pipelineContainer.getRequest()) {
+            Enumeration<String> parameterName = pipelineContainer.getRequest().getParameterNames();
+            while (parameterName.hasMoreElements()) {
+                String name = parameterName.nextElement();
+                replaceMap.put(name, pipelineContainer.getRequest().getParameter(name));
+            }
         }
 
 
