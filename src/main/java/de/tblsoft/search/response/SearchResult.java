@@ -131,6 +131,16 @@ public class SearchResult{
         this.facets = facets;
     }
 
+
+    public Facet getFacetById(String id) {
+        for(Facet facet : getFacets()) {
+            if(id.equals(facet.getId())) {
+                return facet;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "SearchResult{" +
