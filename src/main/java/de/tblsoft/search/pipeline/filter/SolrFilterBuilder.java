@@ -1,5 +1,7 @@
 package de.tblsoft.search.pipeline.filter;
 
+import de.tblsoft.search.solr.QueryTransformerIF;
+
 /**
  * Created by tbl on 11.11.17.
  */
@@ -74,6 +76,16 @@ public class SolrFilterBuilder {
 
 
     public SolrFilterBuilder mapFilter(String from, String to) {
+        return this;
+    }
+
+    public SolrFilterBuilder queryTransformer(QueryTransformerIF queryTransformer) {
+        if(queryTransformer instanceof SolrParameterQueryTransformer) {
+            this.solrParameterQueryTransformer = (SolrParameterQueryTransformer) queryTransformer;
+        } else {
+            throw new IllegalArgumentException("The query transformer " + queryTransformer.getClass().getName() + " is not supported.");
+        }
+
         return this;
     }
 
