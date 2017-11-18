@@ -33,6 +33,8 @@ public class SearchResult{
 
     private List<Facet> facets = new ArrayList<>();
 
+    private Integer facetCount;
+
 
     public String getName() {
         return name;
@@ -141,6 +143,14 @@ public class SearchResult{
         return null;
     }
 
+    public Integer getFacetCount() {
+        return facetCount;
+    }
+
+    public void setFacetCount(Integer facetCount) {
+        this.facetCount = facetCount;
+    }
+
     @Override
     public String toString() {
         return "SearchResult{" +
@@ -155,6 +165,7 @@ public class SearchResult{
                 ", page=" + page +
                 ", maxScore=" + maxScore +
                 ", facets=" + facets +
+                ", facetCount=" + facetCount +
                 '}';
     }
 }

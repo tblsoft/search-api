@@ -49,7 +49,7 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
         if(queryResponse.getFacetFields() == null) {
             return;
         }
-
+        searchResult.setFacetCount(queryResponse.getFacetFields().size());
         for(FacetField facetField : queryResponse.getFacetFields()) {
             Facet facet = new Facet();
 
@@ -59,7 +59,7 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
             String name = facetNameMapping.get(id);
             facet.setName(name);
 
-
+            facet.setCount(facetField.getValues().size());
             for(FacetField.Count count: facetField.getValues()) {
                 FacetValue facetValue = new FacetValue(count.getName(), count.getCount());
 

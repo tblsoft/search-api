@@ -15,6 +15,8 @@ public class Facet {
 
     private String id;
 
+    private Integer count;
+
     private List<FacetValue> values = new ArrayList<>();
 
     public String getName() {
@@ -41,11 +43,20 @@ public class Facet {
         this.values = values;
     }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     @Override
     public String toString() {
         return "Facet{" +
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
+                ", count=" + count +
                 ", values=" + values +
                 '}';
     }

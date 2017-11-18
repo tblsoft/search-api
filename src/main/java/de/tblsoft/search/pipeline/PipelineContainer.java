@@ -39,7 +39,7 @@ public class PipelineContainer {
         this.searchQuery = searchQuery;
     }
 
-    public SearchResult getSearchResponse(String name) {
+    public SearchResult getSearchResult(String name) {
         return searchResults.get(name);
     }
 

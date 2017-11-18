@@ -1,5 +1,6 @@
 package de.tblsoft.search.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
@@ -45,6 +46,7 @@ public class SearchResponse {
         this.time = time;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "GMT")
     public Date getCurrentTime() {
         return currentTime;
     }

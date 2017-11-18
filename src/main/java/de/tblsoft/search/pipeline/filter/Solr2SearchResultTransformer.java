@@ -24,13 +24,13 @@ public class Solr2SearchResultTransformer extends Solr2SearchResultMappingTransf
         if(queryResponse.getFacetFields() == null) {
             return;
         }
-
+        searchResult.setFacetCount(queryResponse.getFacetFields().size());
         for(FacetField facetField : queryResponse.getFacetFields()) {
             Facet facet = new Facet();
             facet.setId(facetField.getName());
             facet.setName(facetField.getName());
 
-
+            facet.setCount(facetField.getValues().size());
             for(FacetField.Count count: facetField.getValues()) {
                 FacetValue facetValue = new FacetValue(count.getName(), count.getCount());
                 facet.getValues().add(facetValue);
