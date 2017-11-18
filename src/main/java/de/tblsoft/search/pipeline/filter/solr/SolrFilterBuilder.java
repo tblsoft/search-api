@@ -1,6 +1,4 @@
-package de.tblsoft.search.pipeline.filter;
-
-import de.tblsoft.search.solr.QueryTransformerIF;
+package de.tblsoft.search.pipeline.filter.solr;
 
 /**
  * Created by tbl on 11.11.17.

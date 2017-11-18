@@ -1,11 +1,10 @@
-package de.tblsoft.search.pipeline.filter;
+package de.tblsoft.search.pipeline.filter.solr;
 
 import com.google.common.base.Strings;
 import de.tblsoft.search.response.Document;
 import de.tblsoft.search.response.Facet;
 import de.tblsoft.search.response.FacetValue;
 import de.tblsoft.search.response.SearchResult;
-import de.tblsoft.search.solr.SearchResultTransformerIF;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;

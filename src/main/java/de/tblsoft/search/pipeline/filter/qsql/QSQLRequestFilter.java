@@ -1,6 +1,7 @@
-package de.tblsoft.search.pipeline.filter;
+package de.tblsoft.search.pipeline.filter.qsql;
 
 import de.tblsoft.search.pipeline.PipelineContainer;
+import de.tblsoft.search.pipeline.filter.AbstractFilter;
 import de.tblsoft.search.query.SearchQuery;
 import de.tblsoft.search.query.parser.SaqlParser;
 

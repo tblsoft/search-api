@@ -1,4 +1,4 @@
-package de.tblsoft.search.solr;
+package de.tblsoft.search.pipeline.filter.solr;
 
 import com.google.common.base.Optional;
 import org.apache.solr.client.solrj.SolrClient;

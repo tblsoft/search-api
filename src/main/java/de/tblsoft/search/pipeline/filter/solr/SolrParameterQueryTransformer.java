@@ -1,7 +1,6 @@
-package de.tblsoft.search.pipeline.filter;
+package de.tblsoft.search.pipeline.filter.solr;
 
 import de.tblsoft.search.pipeline.PipelineContainer;
-import de.tblsoft.search.solr.QueryTransformerIF;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.solr.client.solrj.SolrQuery;
 

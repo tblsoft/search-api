@@ -1,10 +1,8 @@
-package de.tblsoft.search.pipeline.filter;
+package de.tblsoft.search.pipeline.filter.solr;
 
 import de.tblsoft.search.pipeline.PipelineContainer;
+import de.tblsoft.search.pipeline.filter.AbstractFilter;
 import de.tblsoft.search.response.SearchResult;
-import de.tblsoft.search.solr.QueryTransformerIF;
-import de.tblsoft.search.solr.SearchResultTransformerIF;
-import de.tblsoft.search.solr.SolrClientWrapper;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
 
