@@ -12,6 +12,7 @@ public class SearchFilter<T> {
 
     private boolean exclude = true;
 
+    private String id;
 
     private String name;
 
@@ -24,6 +25,14 @@ public class SearchFilter<T> {
 
     public void setValues(List<T> values) {
         this.values = values;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,5 +57,16 @@ public class SearchFilter<T> {
 
     public void setExclude(boolean exclude) {
         this.exclude = exclude;
+    }
+
+    @Override
+    public String toString() {
+        return "SearchFilter{" +
+                "operator=" + operator +
+                ", exclude=" + exclude +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", values=" + values +
+                '}';
     }
 }
