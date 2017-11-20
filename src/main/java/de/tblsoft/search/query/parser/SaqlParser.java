@@ -1,7 +1,7 @@
 package de.tblsoft.search.query.parser;
 
 import com.google.common.base.Strings;
-import de.tblsoft.search.query.Filter;
+import de.tblsoft.search.query.SearchFilter;
 import de.tblsoft.search.query.SearchQuery;
 import de.tblsoft.search.query.RangeFilterValue;
 
@@ -47,17 +47,17 @@ public class SaqlParser {
                 String[] filterValues = parameters.get(name);
                 String filterType = m.group(2);
                 if(Strings.isNullOrEmpty(filterType)) {
-                    Filter<String> filter = new Filter<>();
-                    filter.setName(filterName);
-                    filter.setValues(Arrays.asList(filterValues));
-                    query.getFilterList().add(filter);
+                    SearchFilter<String> searchFilter = new SearchFilter<>();
+                    searchFilter.setName(filterName);
+                    searchFilter.setValues(Arrays.asList(filterValues));
+                    query.getSearchFilterList().add(searchFilter);
                 } else if (".range".equals(filterType)) {
-                    Filter<RangeFilterValue<Number>> filter = new Filter<>();
+                    SearchFilter<RangeFilterValue<Number>> searchFilter = new SearchFilter<>();
                     RangeFilterValue<Number> rangeFilterValue = new RangeFilterValue<>();
                     for(String value : filterValues) {
                         String[] valueSplitted = value.split(Pattern.quote(","));
                         if(valueSplitted.length != 2) {
-                            throw new IllegalArgumentException("The value of a range filter must be in the format parameter=v1-v2");
+                            throw new IllegalArgumentException("The value of a range searchFilter must be in the format parameter=v1-v2");
                         }
                         String min = valueSplitted[0];
                         String max = valueSplitted[1];
@@ -81,9 +81,9 @@ public class SaqlParser {
 
 
 
-                    filter.setName(filterName);
-                    filter.getValues().add(rangeFilterValue);
-                    query.getFilterList().add(filter);
+                    searchFilter.setName(filterName);
+                    searchFilter.getValues().add(rangeFilterValue);
+                    query.getSearchFilterList().add(searchFilter);
                 }
 
             }

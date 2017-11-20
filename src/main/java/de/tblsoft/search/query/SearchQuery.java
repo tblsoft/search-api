@@ -12,7 +12,7 @@ public class SearchQuery {
 
     private String requestId;
 
-    private List<Filter> filterList = new ArrayList<>();
+    private List<SearchFilter> searchFilterList = new ArrayList<>();
 
     private Sort sort;
 
@@ -54,12 +54,12 @@ public class SearchQuery {
         this.rows = rows;
     }
 
-    public List<Filter> getFilterList() {
-        return filterList;
+    public List<SearchFilter> getSearchFilterList() {
+        return searchFilterList;
     }
 
-    public void setFilterList(List<Filter> filterList) {
-        this.filterList = filterList;
+    public void setSearchFilterList(List<SearchFilter> searchFilterList) {
+        this.searchFilterList = searchFilterList;
     }
 
     public boolean isDebug() {

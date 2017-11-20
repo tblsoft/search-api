@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by tblsoft on 11.11.16.
  */
-public class Filter<T> {
+public class SearchFilter<T> {
 
     private Operator operator = Operator.OR;
 

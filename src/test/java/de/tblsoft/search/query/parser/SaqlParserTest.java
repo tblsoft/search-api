@@ -1,6 +1,6 @@
 package de.tblsoft.search.query.parser;
 
-import de.tblsoft.search.query.Filter;
+import de.tblsoft.search.query.SearchFilter;
 import de.tblsoft.search.query.SearchQuery;
 import de.tblsoft.search.query.RangeFilterValue;
 import org.junit.*;
@@ -65,45 +65,45 @@ public class SaqlParserTest {
     @Test
     public void testFilter() {
         SearchQuery query = createQuery("f.foo=bar");
-        Filter<String> filter = query.getFilterList().get(0);
-        Assert.assertEquals(filter.getName(), "foo");
-        Assert.assertEquals(filter.getValues().get(0), "bar");
+        SearchFilter<String> searchFilter = query.getSearchFilterList().get(0);
+        Assert.assertEquals(searchFilter.getName(), "foo");
+        Assert.assertEquals(searchFilter.getValues().get(0), "bar");
     }
 
     @Test
     public void testFilterWithMultipleValues() {
         SearchQuery query = createQuery("f.foo=bar", "f.foo=alice");
-        Filter<String> filter = query.getFilterList().get(0);
-        Assert.assertEquals("foo",filter.getName());
-        Assert.assertEquals("bar", filter.getValues().get(0));
-        Assert.assertEquals("alice",filter.getValues().get(1));
+        SearchFilter<String> searchFilter = query.getSearchFilterList().get(0);
+        Assert.assertEquals("foo", searchFilter.getName());
+        Assert.assertEquals("bar", searchFilter.getValues().get(0));
+        Assert.assertEquals("alice", searchFilter.getValues().get(1));
     }
 
     @Test
     public void testRangeFilterForDoubleValues() {
         SearchQuery query = createQuery("f.foo.range=0.1,5.2");
-        Filter<RangeFilterValue<Double>> filter = query.getFilterList().get(0);
-        Assert.assertEquals("foo", filter.getName());
-        Assert.assertEquals(Double.valueOf(0.1), filter.getValues().get(0).getMinValue());
-        Assert.assertEquals(Double.valueOf(5.2), filter.getValues().get(0).getMaxValue());
+        SearchFilter<RangeFilterValue<Double>> searchFilter = query.getSearchFilterList().get(0);
+        Assert.assertEquals("foo", searchFilter.getName());
+        Assert.assertEquals(Double.valueOf(0.1), searchFilter.getValues().get(0).getMinValue());
+        Assert.assertEquals(Double.valueOf(5.2), searchFilter.getValues().get(0).getMaxValue());
     }
 
     @Test
     public void testRangeFilterForLongValues() {
         SearchQuery query = createQuery("f.foo.range=3,5");
-        Filter<RangeFilterValue<Double>> filter = query.getFilterList().get(0);
-        Assert.assertEquals("foo", filter.getName());
-        Assert.assertEquals(Double.valueOf(3.0), filter.getValues().get(0).getMinValue());
-        Assert.assertEquals(Double.valueOf(5.0), filter.getValues().get(0).getMaxValue());
+        SearchFilter<RangeFilterValue<Double>> searchFilter = query.getSearchFilterList().get(0);
+        Assert.assertEquals("foo", searchFilter.getName());
+        Assert.assertEquals(Double.valueOf(3.0), searchFilter.getValues().get(0).getMinValue());
+        Assert.assertEquals(Double.valueOf(5.0), searchFilter.getValues().get(0).getMaxValue());
     }
 
     @Test
     public void testRangeFilterForMinMaxValues() {
         SearchQuery query = createQuery("f.foo.range=min,max");
-        Filter<RangeFilterValue<Double>> filter = query.getFilterList().get(0);
-        Assert.assertEquals("foo", filter.getName());
-        Assert.assertEquals(Double.valueOf(Double.MIN_VALUE), filter.getValues().get(0).getMinValue());
-        Assert.assertEquals(Double.valueOf(Double.MAX_VALUE), filter.getValues().get(0).getMaxValue());
+        SearchFilter<RangeFilterValue<Double>> searchFilter = query.getSearchFilterList().get(0);
+        Assert.assertEquals("foo", searchFilter.getName());
+        Assert.assertEquals(Double.valueOf(Double.MIN_VALUE), searchFilter.getValues().get(0).getMinValue());
+        Assert.assertEquals(Double.valueOf(Double.MAX_VALUE), searchFilter.getValues().get(0).getMaxValue());
     }
 
     @Test(expected=IllegalArgumentException.class)
