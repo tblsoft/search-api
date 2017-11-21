@@ -21,6 +21,8 @@ public class SearchResponse {
 
     private Date currentTime = new Date();
 
+    private Request request;
+
 
     public Integer getStatusCode() {
         return statusCode;
@@ -53,5 +55,13 @@ public class SearchResponse {
 
     public void setCurrentTime(Date currentTime) {
         this.currentTime = currentTime;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
     }
 }
