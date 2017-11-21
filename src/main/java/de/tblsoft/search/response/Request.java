@@ -1,5 +1,6 @@
 package de.tblsoft.search.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.Strings;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import java.util.Map;
 /**
  * Created by tbl on 19.11.17.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Request {
 
     public Request(HttpServletRequest httpServletRequest) {
