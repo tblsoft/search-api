@@ -58,14 +58,17 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
             String name = facetNameMapping.get(id);
             facet.setName(name);
 
-            facet.setCount(facetField.getValues().size());
+            facet.setCount(Long.valueOf(facetField.getValues().size()));
+            Long facetReseultCount = 0L;
             for(FacetField.Count count: facetField.getValues()) {
                 FacetValue facetValue = new FacetValue(count.getName(), count.getCount());
+                facetReseultCount = facetReseultCount + facetValue.getCount();
 
                 // TODO encode the value
                 facetValue.setFilter(id + "=" + count.getName());
                 facet.getValues().add(facetValue);
             }
+            facet.setResultCount(facetReseultCount);
             searchResult.getFacets().add(facet);
         }
     }

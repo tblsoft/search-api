@@ -15,7 +15,9 @@ public class Facet {
 
     private String id;
 
-    private Integer count;
+    private Long count;
+
+    private Long resultCount;
 
     private List<FacetValue> values = new ArrayList<>();
 
@@ -43,12 +45,20 @@ public class Facet {
         this.values = values;
     }
 
-    public Integer getCount() {
+    public Long getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(Long count) {
         this.count = count;
+    }
+
+    public Long getResultCount() {
+        return resultCount;
+    }
+
+    public void setResultCount(Long resultCount) {
+        this.resultCount = resultCount;
     }
 
     @Override
@@ -57,6 +67,7 @@ public class Facet {
                 "name='" + name + '\'' +
                 ", id='" + id + '\'' +
                 ", count=" + count +
+                ", resultCount=" + resultCount +
                 ", values=" + values +
                 '}';
     }
