@@ -29,11 +29,14 @@ public class Solr2SearchResultTransformer extends Solr2SearchResultMappingTransf
             facet.setId(facetField.getName());
             facet.setName(facetField.getName());
 
-            facet.setCount(facetField.getValues().size());
+            facet.setCount(Long.valueOf(facetField.getValues().size()));
+            Long facetReseultCount = 0L;
             for(FacetField.Count count: facetField.getValues()) {
                 FacetValue facetValue = new FacetValue(count.getName(), count.getCount());
                 facet.getValues().add(facetValue);
+                facetReseultCount = facetReseultCount + facetValue.getCount();
             }
+            facet.setResultCount(facetReseultCount);
             searchResult.getFacets().add(facet);
         }
     }
