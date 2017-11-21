@@ -21,7 +21,7 @@ public class PipelineContainer {
         this.response = response;
     }
 
-    private SearchQuery searchQuery;
+    private SearchQuery searchQuery = new SearchQuery();
     private Map<String, SearchResult> searchResults = new HashMap<>();
 
     private Map<String, ?> context = new HashMap<>();
