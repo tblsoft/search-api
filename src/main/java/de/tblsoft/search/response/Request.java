@@ -1,5 +1,7 @@
 package de.tblsoft.search.response;
 
+import com.google.common.base.Strings;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
@@ -9,11 +11,22 @@ import java.util.Map;
 public class Request {
 
     public Request(HttpServletRequest httpServletRequest) {
-        this.path = httpServletRequest.getPathInfo();
+        this.path = httpServletRequest.getRequestURI();
         this.parameters = httpServletRequest.getParameterMap();
+
+        this.query = httpServletRequest.getQueryString();
+        if(Strings.isNullOrEmpty(this.query)) {
+            this.url = httpServletRequest.getRequestURL().toString();
+        } else {
+            this.url = httpServletRequest.getRequestURL().append("?").append(this.query).toString();
+        }
     }
 
-    private String path = "";
+    private String url;
+
+    private String path;
+
+    private String query;
 
     private Map<String, String[]> parameters;
 
@@ -33,10 +46,28 @@ public class Request {
         this.parameters = parameters;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
     @Override
     public String toString() {
         return "Request{" +
-                "path='" + path + '\'' +
+                "url='" + url + '\'' +
+                ", path='" + path + '\'' +
+                ", query='" + query + '\'' +
                 ", parameters=" + parameters +
                 '}';
     }
