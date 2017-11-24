@@ -93,5 +93,10 @@ public class SolrFilterBuilder {
         return this;
     }
 
+    public SolrFilterBuilder resultField(String resultFieldName, String value) {
+        getMappingTransformer().addResultField(resultFieldName, value);
+        return this;
+    }
+
 
 }

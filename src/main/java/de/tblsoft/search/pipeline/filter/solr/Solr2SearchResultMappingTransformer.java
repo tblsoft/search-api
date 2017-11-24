@@ -5,6 +5,7 @@ import de.tblsoft.search.response.Document;
 import de.tblsoft.search.response.Facet;
 import de.tblsoft.search.response.FacetValue;
 import de.tblsoft.search.response.SearchResult;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
@@ -17,6 +18,7 @@ import java.util.*;
 public class Solr2SearchResultMappingTransformer implements SearchResultTransformerIF {
 
     private Map<String, List<String>> fieldMapping = new HashMap<>();
+    private Map<String, String> resultFields = new HashMap<>();
     private Map<String, String> facetMapping = new HashMap<>();
     private Map<String, String> facetNameMapping = new HashMap<>();
 
@@ -73,11 +75,22 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
 
     public Document transformDocument(SolrDocument solrDocument) {
         Document document = new Document();
-        for(String fieldNames: solrDocument.getFieldNames()) {
-            transformField(document, fieldNames,solrDocument.get(fieldNames));
 
-
+        Map<String, String> replaceMap = new HashMap<>();
+        for(String fieldName: solrDocument.getFieldNames()) {
+            Object value = solrDocument.get(fieldName);
+            transformField(document, fieldName,value);
+            replaceMap.put(fieldName, String.valueOf(value));
         }
+
+        StrSubstitutor strSubstitutor = new StrSubstitutor(replaceMap);
+        for(Map.Entry<String, String> textEntry: resultFields.entrySet()) {
+            String fieldName = textEntry.getKey();
+            String fieldValue = textEntry.getValue();
+            String replacedValue = strSubstitutor.replace(fieldValue);
+            document.getDocument().put(fieldName, replacedValue);
+        }
+
         return document;
 
     }
@@ -121,5 +134,9 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
 
     public void addFacetNameMapping(String from, String to) {
         facetNameMapping.put(from, to);
+    }
+
+    public void addResultField(String resultFieldName, String value) {
+        resultFields.put(resultFieldName, value);
     }
 }
