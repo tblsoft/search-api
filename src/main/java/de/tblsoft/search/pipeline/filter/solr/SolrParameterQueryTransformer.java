@@ -12,6 +12,7 @@ import java.util.*;
 public class SolrParameterQueryTransformer implements QueryTransformerIF {
 
     private Map<String, List<String>> parameters;
+    private Set<String> fieldList = new HashSet<>();
 
     @Override
     public SolrQuery transform(PipelineContainer pipelineContainer) {
@@ -36,6 +37,11 @@ public class SolrParameterQueryTransformer implements QueryTransformerIF {
                 solrQuery.add(parameter.getKey(),replacedValue);
             }
         }
+
+        for(String fieldName:fieldList) {
+            solrQuery.addField(fieldName);
+        }
+
         return solrQuery;
     }
 
@@ -49,5 +55,11 @@ public class SolrParameterQueryTransformer implements QueryTransformerIF {
         }
         values.add(value);
         parameters.put(name, values);
+    }
+
+    public void addFieldListValue(String fieldName) {
+        fieldList.add(fieldName);
+
+
     }
 }

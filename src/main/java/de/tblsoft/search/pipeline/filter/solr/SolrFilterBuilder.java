@@ -60,6 +60,7 @@ public class SolrFilterBuilder {
 
     public SolrFilterBuilder mapField(String from, String to) {
         getMappingTransformer().addFieldMapping(from, to);
+        getSolrParameterQueryTransformer().addFieldListValue(from);
         return this;
     }
 
