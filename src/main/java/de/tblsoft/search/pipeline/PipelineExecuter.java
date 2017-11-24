@@ -26,7 +26,9 @@ public class PipelineExecuter {
             try {
                 long start = System.currentTimeMillis();
                 filter.setStartTime(start);
-                pipelineContainer = filter.filter(pipelineContainer);
+                if(filter.isActive()) {
+                    pipelineContainer = filter.filter(pipelineContainer);
+                }
             } catch (Exception e) {
                 filter.onError(pipelineContainer, e);
             }

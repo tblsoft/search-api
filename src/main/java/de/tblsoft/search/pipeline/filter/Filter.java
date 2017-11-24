@@ -19,4 +19,6 @@ public interface Filter {
     PipelineContainer onError(PipelineContainer pipelineContainer, Exception e);
 
     void end();
+
+    boolean isActive();
 }

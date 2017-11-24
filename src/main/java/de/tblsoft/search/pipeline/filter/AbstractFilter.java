@@ -11,6 +11,8 @@ public abstract class AbstractFilter implements Filter {
 
     private long startTime;
 
+    private boolean active = true;
+
     @Override
     public void setPipelineId(String pipelineId) {
         this.pipelineId = pipelineId;
@@ -44,5 +46,14 @@ public abstract class AbstractFilter implements Filter {
     public PipelineContainer onError(PipelineContainer pipelineContainer, Exception e) {
         e.printStackTrace();
         return pipelineContainer;
+    }
+
+    @Override
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
