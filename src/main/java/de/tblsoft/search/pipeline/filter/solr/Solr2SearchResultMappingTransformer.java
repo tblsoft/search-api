@@ -9,16 +9,14 @@ import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by tblsoft on 11.11.17.
  */
 public class Solr2SearchResultMappingTransformer implements SearchResultTransformerIF {
 
-    private Map<String, String> fieldMapping = new HashMap<>();
+    private Map<String, List<String>> fieldMapping = new HashMap<>();
     private Map<String, String> facetMapping = new HashMap<>();
     private Map<String, String> facetNameMapping = new HashMap<>();
 
@@ -85,13 +83,18 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
     }
 
     public void transformField(Document document, String name, Object value) {
-        String mappedName = fieldMapping.get(name);
-        if(!Strings.isNullOrEmpty(mappedName)) {
-            document.getDocument().put(mappedName, value);
+        List<String> mappedNames = fieldMapping.get(name);
+        if(mappedNames == null) {
+            return;
+        }
+        for(String mappedName : mappedNames) {
+            if (!Strings.isNullOrEmpty(mappedName)) {
+                document.getDocument().put(mappedName, value);
+            }
         }
     }
 
-    public void setFieldMapping(Map<String, String> fieldMapping) {
+    public void setFieldMapping(Map<String, List<String>> fieldMapping) {
         this.fieldMapping = fieldMapping;
     }
 
@@ -104,7 +107,13 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
     }
 
     public void addFieldMapping(String from, String to) {
-        fieldMapping.put(from, to);
+        List<String> mapping = fieldMapping.get(from);
+        if(mapping == null) {
+            mapping = new ArrayList<>();
+        }
+        mapping.add(to);
+
+        fieldMapping.put(from, mapping);
     }
     public void addFacetMapping(String from, String to) {
         facetMapping.put(from, to);
