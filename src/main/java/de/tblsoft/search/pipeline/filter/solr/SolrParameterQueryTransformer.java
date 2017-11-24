@@ -4,6 +4,7 @@ import de.tblsoft.search.pipeline.PipelineContainer;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.solr.client.solrj.SolrQuery;
 
+import javax.servlet.http.Cookie;
 import java.util.*;
 
 /**
@@ -25,6 +26,21 @@ public class SolrParameterQueryTransformer implements QueryTransformerIF {
             while (parameterName.hasMoreElements()) {
                 String name = parameterName.nextElement();
                 replaceMap.put(name, pipelineContainer.getRequest().getParameter(name));
+                replaceMap.put("query." + name, pipelineContainer.getRequest().getParameter(name));
+            }
+
+            Enumeration<String> headerNames =  pipelineContainer.getRequest().getHeaderNames();
+            while (headerNames.hasMoreElements()) {
+                String name = headerNames.nextElement();
+                String value = pipelineContainer.getRequest().getHeader(name);
+                replaceMap.put("header." + name, value);
+            }
+
+
+            for(Cookie cookie : pipelineContainer.getRequest().getCookies()) {
+                String name = cookie.getName();
+                String value = cookie.getValue();
+                replaceMap.put("cookie." + name, value);
             }
         }
 
