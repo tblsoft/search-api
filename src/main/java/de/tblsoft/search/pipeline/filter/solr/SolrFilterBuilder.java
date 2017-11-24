@@ -88,5 +88,10 @@ public class SolrFilterBuilder {
         return this;
     }
 
+    public SolrFilterBuilder disable() {
+        solrFilter.setActive(false);
+        return this;
+    }
+
 
 }
