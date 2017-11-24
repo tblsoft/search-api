@@ -5,6 +5,7 @@ import de.tblsoft.search.response.Document;
 import de.tblsoft.search.response.Facet;
 import de.tblsoft.search.response.FacetValue;
 import de.tblsoft.search.response.SearchResult;
+import de.tblsoft.search.util.EncodingUtil;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -63,9 +64,7 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
             for(FacetField.Count count: facetField.getValues()) {
                 FacetValue facetValue = new FacetValue(count.getName(), count.getCount());
                 facetReseultCount = facetReseultCount + facetValue.getCount();
-
-                // TODO encode the value
-                facetValue.setFilter(id + "=" + count.getName());
+                facetValue.setFilter(id + "=" + EncodingUtil.encode(count.getName()));
                 facet.getValues().add(facetValue);
             }
             facet.setResultCount(facetReseultCount);
