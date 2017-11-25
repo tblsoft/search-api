@@ -1,14 +1,11 @@
-package de.tblsoft.search;
+package de.tblsoft.search.mock;
 
 import com.google.common.base.Splitter;
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.response.QueryResponse;
+import de.tblsoft.search.pipeline.filter.solr.MockSolrClient;
 import org.mockito.Mockito;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.net.URI;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -47,5 +44,11 @@ public class Mockfactory {
         } catch (Exception e ) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static MockSolrClient createSolrClient(String url) {
+        MockSolrClient mockSolrClient = new MockSolrClient(url);
+        //mockSolrClient.setRecord(true);
+        return mockSolrClient;
     }
 }
