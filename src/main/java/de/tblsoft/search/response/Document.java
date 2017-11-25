@@ -17,4 +17,11 @@ public class Document {
     public void setDocument(Map<String, Object> document) {
         this.document = document;
     }
+
+    @Override
+    public String toString() {
+        return "Document{" +
+                "document=" + document +
+                '}';
+    }
 }

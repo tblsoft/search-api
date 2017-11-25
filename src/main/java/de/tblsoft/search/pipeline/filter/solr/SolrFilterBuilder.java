@@ -1,5 +1,7 @@
 package de.tblsoft.search.pipeline.filter.solr;
 
+import org.apache.solr.client.solrj.SolrClient;
+
 /**
  * Created by tbl on 11.11.17.
  */
@@ -95,6 +97,11 @@ public class SolrFilterBuilder {
 
     public SolrFilterBuilder resultField(String resultFieldName, String value) {
         getMappingTransformer().addResultField(resultFieldName, value);
+        return this;
+    }
+
+    public SolrFilterBuilder solrClient(SolrClient solrClient) {
+        solrFilter.setSolrClient(solrClient);
         return this;
     }
 
