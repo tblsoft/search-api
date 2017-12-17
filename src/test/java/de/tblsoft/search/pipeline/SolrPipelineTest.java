@@ -38,10 +38,12 @@ public class SolrPipelineTest extends AbstractPipelineTest {
                         param("facet.field","author").
                         param("facet.field","genre_s").
                         mapField("id","id").
+                        mapField("id","productId").
                         mapField("author","author").
                         mapField("price","price").
                         mapField("inStock","stock").
                         mapField("genre_s","genre").
+                        resultField("url","http://quasiris.de/shop/products/${id}").
                         mapFacet("genre_s", "genre").
                         mapFacetName("genre", "Genre").
                         mapFacet("author", "author").
@@ -60,11 +62,13 @@ public class SolrPipelineTest extends AbstractPipelineTest {
         Assert.assertEquals(9,searchResult.getDocuments().size());
 
         Document document = searchResult.getDocuments().get(0);
-        Assert.assertEquals(5, document.getFieldCount());
+        Assert.assertEquals(7, document.getFieldCount());
         Assert.assertEquals("6.99", document.getFieldValue("price"));
         Assert.assertEquals("Roger Zelazny", document.getFieldValue("author"));
         Assert.assertEquals("fantasy", document.getFieldValue("genre"));
         Assert.assertEquals("0380014300", document.getFieldValue("id"));
+        Assert.assertEquals("0380014300", document.getFieldValue("productId"));
+        Assert.assertEquals("http://quasiris.de/shop/products/0380014300", document.getFieldValue("url"));
         Assert.assertEquals("true", document.getFieldValue("stock"));
 
         Facet facet = searchResult.getFacetById("author");
