@@ -1,0 +1,28 @@
+{
+  "size": 10,
+  "query": {
+    "dis_max": {
+      "queries": [
+        {
+          "query_string": {
+            "_name": "dismax",
+            "query": "${q}",
+            "default_operator": "OR",
+            "fields": [
+              "${fields}"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "highlight" : {
+    "fields" : {
+      "name" : {
+        "fragment_size" : 150,
+        "number_of_fragments" : 3,
+        "no_match_size": 150
+      }
+    }
+  }
+}

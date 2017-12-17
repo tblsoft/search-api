@@ -44,8 +44,8 @@ public class PipelineContainer {
     }
 
 
-    public void putSearchResponse(String name, SearchResult searchResponse) {
-        searchResults.put(name, searchResponse);
+    public void putSearchResult(String name, SearchResult searchResult) {
+        searchResults.put(name, searchResult);
     }
 
     public <T> T getContext(String name, Class<T> clazz) {

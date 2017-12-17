@@ -4,6 +4,11 @@
 [![Coverage Status](https://coveralls.io/repos/github/tblsoft/search-api/badge.svg?branch=master)](https://coveralls.io/github/tblsoft/search-api?branch=master)
 [![MIT License](https://img.shields.io/npm/l/check-dependencies.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
+## offene Punkte
+- soll die Facets in ein eigenes Objekt
+- Logging
+- Timeout für Filter
+        
         
 ## Architecture
 ![Search API Architecture](/doc/images/architecture-search-api.png)
@@ -25,8 +30,8 @@ https://spring.io/guides/gs/circuit-breaker/
 ### Filter
 - all 
 
-- by default multiple filter values for one property are connected by OR
-- to change the logic: filter.name.operator=AND
+- by default multiple searchFilter values for one property are connected by OR
+- to change the logic: searchFilter.name.operator=AND
 
 
 
@@ -34,7 +39,8 @@ https://spring.io/guides/gs/circuit-breaker/
 - http://metrics.dropwizard.io/3.1.0/getting-started/
 
 
-
+## Testing
+https://dzone.com/articles/junit-testing-for-solr-6
 
 
 ## License
