@@ -1,10 +1,10 @@
 package de.tblsoft.search.pipeline.filter.solr;
 
 import de.tblsoft.search.pipeline.PipelineContainer;
+import de.tblsoft.search.pipeline.filter.web.RequestParser;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.solr.client.solrj.SolrQuery;
 
-import javax.servlet.http.Cookie;
 import java.util.*;
 
 /**
@@ -19,32 +19,7 @@ public class SolrParameterQueryTransformer implements QueryTransformerIF {
     public SolrQuery transform(PipelineContainer pipelineContainer) {
         SolrQuery solrQuery = new SolrQuery();
 
-        Map<String, String> replaceMap = new HashMap<>();
-
-        synchronized (pipelineContainer.getRequest()) {
-            Enumeration<String> parameterName = pipelineContainer.getRequest().getParameterNames();
-            while (parameterName.hasMoreElements()) {
-                String name = parameterName.nextElement();
-                replaceMap.put(name, pipelineContainer.getRequest().getParameter(name));
-                replaceMap.put("query." + name, pipelineContainer.getRequest().getParameter(name));
-            }
-
-            Enumeration<String> headerNames =  pipelineContainer.getRequest().getHeaderNames();
-            while (headerNames.hasMoreElements()) {
-                String name = headerNames.nextElement();
-                String value = pipelineContainer.getRequest().getHeader(name);
-                replaceMap.put("header." + name, value);
-            }
-
-
-            for(Cookie cookie : pipelineContainer.getRequest().getCookies()) {
-                String name = cookie.getName();
-                String value = cookie.getValue();
-                replaceMap.put("cookie." + name, value);
-            }
-        }
-
-
+        Map<String, String> replaceMap = RequestParser.getRequestParameter(pipelineContainer);
         StrSubstitutor strSubstitutor = new StrSubstitutor(replaceMap);
 
         for(Map.Entry<String, List<String>> parameter: parameters.entrySet()) {

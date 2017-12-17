@@ -52,7 +52,7 @@ public class SolrFilter extends AbstractFilter {
         searchResult.setStatusCode(200);
         searchResult.setStatusMessage("OK");
 
-        pipelineContainer.putSearchResponse(resultSetId, searchResult);
+        pipelineContainer.putSearchResult(resultSetId, searchResult);
 
         return pipelineContainer;
     }

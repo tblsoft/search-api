@@ -17,9 +17,9 @@ public class SearchResult{
 
     private String name;
 
-    private String statusMessage = "";
+    private String statusMessage;
 
-    private List<Document> documents = new ArrayList<>();
+    private List<Document> documents;
 
     private Long time;
 
@@ -31,7 +31,7 @@ public class SearchResult{
 
     private Float maxScore;
 
-    private List<Facet> facets = new ArrayList<>();
+    private List<Facet> facets;
 
     private Integer facetCount;
 
@@ -134,6 +134,21 @@ public class SearchResult{
     }
 
 
+    public void addDocument(Document document) {
+        if(this.documents == null) {
+            this.documents = new ArrayList<>();
+        }
+        getDocuments().add(document);
+    }
+
+    public void addFacet(Facet facet) {
+        if(this.facets == null) {
+            this.facets = new ArrayList<>();
+        }
+        getFacets().add(facet);
+    }
+
+
     public Facet getFacetById(String id) {
         for(Facet facet : getFacets()) {
             if(id.equals(facet.getId())) {
@@ -167,5 +182,9 @@ public class SearchResult{
                 ", facets=" + facets +
                 ", facetCount=" + facetCount +
                 '}';
+    }
+
+    public void initDocuments() {
+        this.documents = new ArrayList<>();
     }
 }

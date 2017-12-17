@@ -36,7 +36,7 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
         while(solrDocumentIterator.hasNext()) {
             SolrDocument solrDocument = solrDocumentIterator.next();
             Document document = transformDocument(solrDocument);
-            result.getDocuments().add(document);
+            result.addDocument(document);
         }
 
         mapFacets(queryResponse, result);
@@ -68,7 +68,7 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
                 facet.getValues().add(facetValue);
             }
             facet.setResultCount(facetReseultCount);
-            searchResult.getFacets().add(facet);
+            searchResult.addFacet(facet);
         }
     }
 

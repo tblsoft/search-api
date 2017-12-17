@@ -21,7 +21,7 @@ public class SleepFilter extends AbstractFilter {
             SearchResult searchResponse = new SearchResult();
             searchResponse.setStatusCode(200);
             searchResponse.setStatusMessage(Thread.currentThread().getName());
-            pipelineContainer.putSearchResponse(getPipelineId(),searchResponse);
+            pipelineContainer.putSearchResult(getPipelineId(),searchResponse);
             Thread.sleep(sleepTime);
         } catch (InterruptedException e) {
             // do nothing
