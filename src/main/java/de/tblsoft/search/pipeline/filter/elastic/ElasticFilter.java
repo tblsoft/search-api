@@ -13,12 +13,15 @@ import de.tblsoft.search.pipeline.filter.elastic.client.StandardElasticClient;
 import de.tblsoft.search.pipeline.filter.web.RequestParser;
 import de.tblsoft.search.response.Document;
 import de.tblsoft.search.response.SearchResult;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -71,14 +74,34 @@ public class ElasticFilter extends AbstractFilter {
         return pipelineContainer;
     }
 
-    private String loadRawProfile(String filename) throws IOException {
+    private String loadProfileFromFile(String filename) throws IOException {
         File file = new File(filename);
         String profile = Files.toString(file, Charsets.UTF_8);
         return profile;
     }
 
+    private String loadProfileFromClasspath(String filename) throws IOException {
+
+        String resource = filename.replaceFirst("classpath://", "");
+        InputStream in = this.getClass().getClassLoader()
+                .getResourceAsStream(resource);
+
+        String profile = IOUtils.toString(in, Charset.forName("UTF-8"));
+        IOUtils.closeQuietly(in);
+        return profile;
+
+
+    }
+
     private String loadProfile(String filename, Map<String, String> vars) throws IOException {
-        String profile = loadRawProfile(filename);
+        String profile = null;
+        if(filename.startsWith("classpath://")) {
+            profile = loadProfileFromClasspath(filename);
+        } else {
+            profile = loadProfileFromFile(filename);
+        }
+
+
         StrSubstitutor strSubstitutor = new StrSubstitutor(vars);
         profile = strSubstitutor.replace(profile);
         return profile;

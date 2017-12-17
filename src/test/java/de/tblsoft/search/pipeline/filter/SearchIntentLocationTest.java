@@ -31,7 +31,7 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
         ElasticFilter elasticFilter = new ElasticFilter();
         elasticFilter.setResultSetId("locationLookup");
         elasticFilter.setElasticBaseUrl("http://localhost:9214/quantum");
-        elasticFilter.setProfile("src/main/resources/location.json");
+        elasticFilter.setProfile("classpath://de/tblsoft/search/elastic/profiles/location.json");
         elasticFilter.setElasticClient(mockElasticClient);
 
 
@@ -45,7 +45,7 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
                 build();
 
 
-        HttpServletRequest httpServletRequest = Mockfactory.createHttpServletRequest("http://localhost/foo/bar?q=Dr.%20Thomas%20M%C3%BCller%20Darmstadt&fields=name");
+        HttpServletRequest httpServletRequest = Mockfactory.createHttpServletRequest("http://localhost/foo/bar?q=Dr.%20Thomas%20M%C3%BCller%20Darmstadt");
         PipelineExecuter pipelineExecuter = new PipelineExecuter(pipeline);
         PipelineContainer pipelineContainer = new PipelineContainer(httpServletRequest, null);
         pipelineContainer = pipelineExecuter.execute(pipelineContainer);

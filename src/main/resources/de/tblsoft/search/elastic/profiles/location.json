@@ -9,7 +9,7 @@
             "query": "${q}",
             "default_operator": "OR",
             "fields": [
-              "${fields}"
+              "name"
             ]
           }
         }
