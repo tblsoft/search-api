@@ -1,0 +1,215 @@
+{
+  "took" : 4,
+  "hits" : {
+    "total" : 28,
+    "max_score" : 1.2077023,
+    "hits" : [ {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "7a731cf9-b3e1-4b2c-aa1b-f74f9f69a9d0",
+      "_score" : 1.2077023,
+      "_source" : {
+        "tagkey_openGeoDB:license_plate_code" : "DA",
+        "laton" : "49.872775,8.651177",
+        "tagkey_openGeoDB:is_in_loc_id" : 517,
+        "tagkey_wikipedia" : "de:Darmstadt",
+        "tagkey_name" : "Darmstadt",
+        "id" : 240074718,
+        "tagkey_is_in" : "Darmstadt,Hessen,Bundesrepublik Deutschland,Europe",
+        "name" : "Darmstadt",
+        "tagkey_name:sr" : "Дармштат",
+        "tagkey_openGeoDB:type" : "Wissenschaftsstadt",
+        "place" : "city",
+        "tagkey_is_in:country_code" : "DE",
+        "lat" : "49.872775",
+        "lon" : "8.651177",
+        "tagkey_name:zh" : "达姆施塔特",
+        "tagkey_place" : "city",
+        "tagkey_openGeoDB:layer" : 6,
+        "tagkey_name:de" : "Darmstadt",
+        "tagkey_wikidata" : "Q2973",
+        "tagkey_name:la" : "Darmstadium",
+        "tagkey_is_in:iso_3166_2" : "DE-HE",
+        "tagkey_openGeoDB:postal_codes" : "64283,64285,64287,64289,64291,64293,64295,64297",
+        "tagkey_ref:LOCODE" : "DEDAR",
+        "tagkey_openGeoDB:community_identification_number" : 6411000,
+        "tagkey_openGeoDB:telephone_area_code" : 6151,
+        "tagkey_name:ja" : "ダルムシュタット",
+        "tagkey_population" : 154002,
+        "tagkey_name:ru" : "Дармштадт",
+        "tagkey_openGeoDB:loc_id" : 15443,
+        "tagkey_name:nds" : "Darmstadt"
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "5ae5fe77-431e-4cf7-9e47-5578bb1de1c9",
+      "_score" : 0.8473431,
+      "_source" : {
+        "tagkey_name" : "Müller Hof",
+        "id" : 3788636821,
+        "lon" : "9.0695629",
+        "tagkey_place" : "isolated_dwelling",
+        "laton" : "47.735538,9.0695629",
+        "name" : "Müller Hof",
+        "place" : "isolated_dwelling",
+        "lat" : "47.735538"
+      },
+      "highlight" : {
+        "name" : [ "<em>Müller</em> Hof" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "2b2966ff-6e08-4911-a1de-80c7ec9aed3f",
+      "_score" : 0.8319061,
+      "_source" : {
+        "tagkey_name" : "Darmstadt-Dieburg",
+        "id" : 310416606,
+        "lon" : "8.8481024",
+        "tagkey_place" : "county",
+        "laton" : "49.882598,8.8481024",
+        "name" : "Darmstadt-Dieburg",
+        "place" : "county",
+        "lat" : "49.882598"
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>-Dieburg" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "130c2b07-f69e-4de4-92f4-38695a441b67",
+      "_score" : 0.8193111,
+      "_source" : {
+        "tagkey_name" : "Müller Halde",
+        "id" : 2582217871,
+        "lon" : "9.9447925",
+        "tagkey_place" : "hamlet",
+        "laton" : "47.7790796,9.9447925",
+        "name" : "Müller Halde",
+        "place" : "hamlet",
+        "lat" : "47.7790796"
+      },
+      "highlight" : {
+        "name" : [ "<em>Müller</em> Halde" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "75418833-161e-4189-aa41-6d9afdc207c4",
+      "_score" : 0.7994405,
+      "_source" : {
+        "tagkey_name" : "Thomas Hof",
+        "id" : 3380554596,
+        "lon" : "8.5489096",
+        "tagkey_place" : "farm",
+        "laton" : "52.0988957,8.5489096",
+        "name" : "Thomas Hof",
+        "place" : "farm",
+        "lat" : "52.0988957"
+      },
+      "highlight" : {
+        "name" : [ "<em>Thomas</em> Hof" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "9f85b732-f917-4500-b8d0-a5dd9e44bf0f",
+      "_score" : 0.7994405,
+      "_source" : {
+        "tagkey_name" : "Siedlung Müller",
+        "id" : 3533489660,
+        "lon" : "7.3410586",
+        "tagkey_place" : "isolated_dwelling",
+        "laton" : "50.3178712,7.3410586",
+        "tagkey_is_in" : "Ruitsch,Polch,Mayen-Koblenz",
+        "name" : "Siedlung Müller",
+        "place" : "isolated_dwelling",
+        "tagkey_alt_name" : "Aussiedlung Müller",
+        "lat" : "50.3178712"
+      },
+      "highlight" : {
+        "name" : [ "Siedlung <em>Müller</em>" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "7a36eaf8-3b49-49d0-864a-712d75735bfb",
+      "_score" : 0.7835723,
+      "_source" : {
+        "tagkey_name" : "Darmstadt-Ost",
+        "id" : 958121890,
+        "lon" : "8.672461",
+        "tagkey_place" : "suburb",
+        "laton" : "49.8735755,8.672461",
+        "name" : "Darmstadt-Ost",
+        "place" : "suburb",
+        "lat" : "49.8735755",
+        "tagkey_ref" : 300
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>-Ost" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "86c3f4a8-afbb-4b5a-accb-7d12db0eff1e",
+      "_score" : 0.7835723,
+      "_source" : {
+        "tagkey_name" : "Darmstadt-Nord",
+        "id" : 958260474,
+        "lon" : "8.6507225",
+        "tagkey_place" : "suburb",
+        "laton" : "49.883176,8.6507225",
+        "name" : "Darmstadt-Nord",
+        "place" : "suburb",
+        "lat" : "49.883176",
+        "tagkey_ref" : 200
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>-Nord" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "cb5d0970-aa4b-415b-9cd3-7b4b8238fa23",
+      "_score" : 0.75763535,
+      "_source" : {
+        "tagkey_name" : "Thomas-Au",
+        "id" : 5097579951,
+        "lon" : "12.7875154",
+        "tagkey_place" : "locality",
+        "laton" : "47.707815,12.7875154",
+        "name" : "Thomas-Au",
+        "place" : "locality",
+        "lat" : "47.707815"
+      },
+      "highlight" : {
+        "name" : [ "<em>Thomas</em>-Au" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "87d764ca-80be-47b8-8cba-dd19be9c1662",
+      "_score" : 0.7548139,
+      "_source" : {
+        "tagkey_name" : "Darmstadt-Mitte",
+        "id" : 958260411,
+        "lon" : "8.6511983",
+        "tagkey_place" : "suburb",
+        "laton" : "49.8727478,8.6511983",
+        "name" : "Darmstadt-Mitte",
+        "place" : "suburb",
+        "lat" : "49.8727478",
+        "tagkey_ref" : 100
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>-Mitte" ]
+      }
+    } ]
+  }
+}
