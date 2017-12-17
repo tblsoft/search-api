@@ -1,5 +1,5 @@
 {
-  "took" : 4,
+  "took" : 3,
   "hits" : {
     "total" : 28,
     "max_score" : 1.2077023,

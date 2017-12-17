@@ -25,7 +25,7 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
     @Test
     public void testSearchIntentLocation() throws Exception {
         MockElasticClient mockElasticClient = new MockElasticClient();
-        mockElasticClient.setRecord(true);
+        //mockElasticClient.setRecord(true);
         QSQLRequestFilter qsqlRequestFilter = new QSQLRequestFilter();
 
         ElasticFilter elasticFilter = new ElasticFilter();
