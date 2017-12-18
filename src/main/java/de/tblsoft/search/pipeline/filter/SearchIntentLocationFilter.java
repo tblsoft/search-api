@@ -25,6 +25,17 @@ public class SearchIntentLocationFilter extends AbstractFilter {
 
     }
 
+    private Set<String> normalizeLocationNames(String highlightedLocationName) {
+        if(highlightedLocationName == null) {
+            return Collections.emptySet();
+        }
+
+        return getHighlightedValues(highlightedLocationName).
+                stream().
+                map(SearchIntentLocationFilter::normalizeToken).
+                collect(Collectors.toSet());
+    }
+
     @Override
     public PipelineContainer filter(PipelineContainer pipelineContainer) {
         SearchResult locationLookup = pipelineContainer.getSearchResult("locationLookup");
@@ -32,14 +43,18 @@ public class SearchIntentLocationFilter extends AbstractFilter {
         if(locationLookup == null) {
             return pipelineContainer;
         }
-        String highlightedLocationName = locationLookup.getDocuments().stream().findFirst().map(f -> f.getFieldValue("highlight.name")).orElse(null);
 
-        List<String> normalizedLocationNames = Collections.emptyList();
-        if(highlightedLocationName != null) {
-            normalizedLocationNames = getHighlightedValues(highlightedLocationName).
-                    stream().
-                    map(SearchIntentLocationFilter::normalizeToken).
-                    collect(Collectors.toList());
+
+        int relevantDocuments = 2;
+        int currentDocument = 0;
+        Set<String> normalizedLocationNames = new HashSet<>();
+        for(Document document : locationLookup.getDocuments()) {
+            if(currentDocument >= relevantDocuments) {
+                break;
+            }
+            currentDocument++;
+            String highlightedLocationName = document.getFieldValue("highlight.name");
+            normalizedLocationNames.addAll(normalizeLocationNames(highlightedLocationName));
         }
 
 
