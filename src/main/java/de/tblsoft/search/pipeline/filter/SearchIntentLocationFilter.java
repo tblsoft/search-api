@@ -8,9 +8,7 @@ import de.tblsoft.search.response.Document;
 import de.tblsoft.search.response.SearchResult;
 import de.tblsoft.search.text.TextUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -20,6 +18,13 @@ import java.util.stream.Collectors;
  */
 public class SearchIntentLocationFilter extends AbstractFilter {
 
+
+    private static Set<String> locationBlacklist = new HashSet<>();
+    static{
+        locationBlacklist.add("thomas");
+
+    }
+
     @Override
     public PipelineContainer filter(PipelineContainer pipelineContainer) {
         SearchResult locationLookup = pipelineContainer.getSearchResult("locationLookup");
@@ -27,11 +32,11 @@ public class SearchIntentLocationFilter extends AbstractFilter {
         if(locationLookup == null) {
             return pipelineContainer;
         }
-        String highlightedCityName = locationLookup.getDocuments().stream().findFirst().map(f -> f.getFieldValue("highlight.name")).orElse(null);
+        String highlightedLocationName = locationLookup.getDocuments().stream().findFirst().map(f -> f.getFieldValue("highlight.name")).orElse(null);
 
-        List<String> normalizedValues = Collections.emptyList();
-        if(highlightedCityName != null) {
-            normalizedValues = getHighlightedValues(highlightedCityName).
+        List<String> normalizedLocationNames = Collections.emptyList();
+        if(highlightedLocationName != null) {
+            normalizedLocationNames = getHighlightedValues(highlightedLocationName).
                     stream().
                     map(SearchIntentLocationFilter::normalizeToken).
                     collect(Collectors.toList());
@@ -46,7 +51,9 @@ public class SearchIntentLocationFilter extends AbstractFilter {
             String normalizedToken = normalizeToken(token);
             if(TextUtils.isGermanPostalCode(token)) {
                 otherTokens.add(token);
-            } else if(normalizedValues.contains(normalizedToken)) {
+            } else if(locationBlacklist.contains(token)) {
+                otherTokens.add(token);
+            } else if(normalizedLocationNames.contains(normalizedToken)) {
                 locationTokens.add(token);
             } else {
                 otherTokens.add(token);
