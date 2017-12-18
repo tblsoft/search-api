@@ -1,0 +1,216 @@
+{
+  "took" : 5,
+  "hits" : {
+    "total" : 9,
+    "max_score" : 1.5119808,
+    "hits" : [ {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "7a731cf9-b3e1-4b2c-aa1b-f74f9f69a9d0",
+      "_score" : 1.5119808,
+      "_source" : {
+        "tagkey_openGeoDB:license_plate_code" : "DA",
+        "laton" : "49.872775,8.651177",
+        "tagkey_openGeoDB:is_in_loc_id" : 517,
+        "tagkey_wikipedia" : "de:Darmstadt",
+        "tagkey_name" : "Darmstadt",
+        "id" : 240074718,
+        "tagkey_is_in" : "Darmstadt,Hessen,Bundesrepublik Deutschland,Europe",
+        "name" : "Darmstadt",
+        "tagkey_name:sr" : "Дармштат",
+        "tagkey_openGeoDB:type" : "Wissenschaftsstadt",
+        "place" : "city",
+        "tagkey_is_in:country_code" : "DE",
+        "lat" : "49.872775",
+        "lon" : "8.651177",
+        "tagkey_name:zh" : "达姆施塔特",
+        "tagkey_place" : "city",
+        "tagkey_openGeoDB:layer" : 6,
+        "tagkey_name:de" : "Darmstadt",
+        "tagkey_wikidata" : "Q2973",
+        "tagkey_name:la" : "Darmstadium",
+        "tagkey_is_in:iso_3166_2" : "DE-HE",
+        "tagkey_openGeoDB:postal_codes" : "64283,64285,64287,64289,64291,64293,64295,64297",
+        "tagkey_ref:LOCODE" : "DEDAR",
+        "tagkey_openGeoDB:community_identification_number" : 6411000,
+        "tagkey_openGeoDB:telephone_area_code" : 6151,
+        "tagkey_name:ja" : "ダルムシュタット",
+        "tagkey_population" : 154002,
+        "tagkey_name:ru" : "Дармштадт",
+        "tagkey_openGeoDB:loc_id" : 15443,
+        "tagkey_name:nds" : "Darmstadt"
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "7a36eaf8-3b49-49d0-864a-712d75735bfb",
+      "_score" : 0.7360585,
+      "_source" : {
+        "tagkey_name" : "Darmstadt-Ost",
+        "id" : 958121890,
+        "lon" : "8.672461",
+        "tagkey_place" : "suburb",
+        "laton" : "49.8735755,8.672461",
+        "name" : "Darmstadt-Ost",
+        "place" : "suburb",
+        "lat" : "49.8735755",
+        "tagkey_ref" : 300
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>-Ost" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "86c3f4a8-afbb-4b5a-accb-7d12db0eff1e",
+      "_score" : 0.7360585,
+      "_source" : {
+        "tagkey_name" : "Darmstadt-Nord",
+        "id" : 958260474,
+        "lon" : "8.6507225",
+        "tagkey_place" : "suburb",
+        "laton" : "49.883176,8.6507225",
+        "name" : "Darmstadt-Nord",
+        "place" : "suburb",
+        "lat" : "49.883176",
+        "tagkey_ref" : 200
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>-Nord" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "87d764ca-80be-47b8-8cba-dd19be9c1662",
+      "_score" : 0.7096876,
+      "_source" : {
+        "tagkey_name" : "Darmstadt-Mitte",
+        "id" : 958260411,
+        "lon" : "8.6511983",
+        "tagkey_place" : "suburb",
+        "laton" : "49.8727478,8.6511983",
+        "name" : "Darmstadt-Mitte",
+        "place" : "suburb",
+        "lat" : "49.8727478",
+        "tagkey_ref" : 100
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>-Mitte" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "1f07e4b3-765e-42a5-a9d6-c47f93816940",
+      "_score" : 0.7096876,
+      "_source" : {
+        "tagkey_name" : "Darmstadt-West",
+        "id" : 958260491,
+        "lon" : "8.6371938",
+        "tagkey_place" : "suburb",
+        "laton" : "49.8590836,8.6371938",
+        "name" : "Darmstadt-West",
+        "place" : "suburb",
+        "lat" : "49.8590836",
+        "tagkey_ref" : 500
+      },
+      "highlight" : {
+        "name" : [ "<em>Darmstadt</em>-West" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "6e005b67-7655-4104-a89d-740c45160ebf",
+      "_score" : 0.63142097,
+      "_source" : {
+        "tagkey_openGeoDB:license_plate_code" : "BIT",
+        "lon" : "6.5994758",
+        "tagkey_place" : "village",
+        "tagkey_openGeoDB:name" : "Sankt Thomas, Eifel",
+        "laton" : "50.0671842,6.5994758",
+        "tagkey_openGeoDB:postal_codes" : 54655,
+        "tagkey_openGeoDB:community_identification_number" : 7232113,
+        "tagkey_openGeoDB:telephone_area_code" : 6563,
+        "id" : 240105077,
+        "tagkey_name" : "Sankt Thomas",
+        "tagkey_population" : 305,
+        "tagkey_openGeoDB:combination_of_public_administration" : "Verbandsgemeinde Kyllburg",
+        "tagkey_is_in" : "Bitburg-Prüm,Trier,Rheinland-Pfalz,Bundesrepublik Deutschland,Europe",
+        "name" : "Sankt Thomas",
+        "place" : "village",
+        "tagkey_openGeoDB:loc_id" : 23552,
+        "lat" : "50.0671842"
+      },
+      "highlight" : {
+        "name" : [ "Sankt <em>Thomas</em>" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "14bae3b7-21e2-4b34-803e-a6d3333aca51",
+      "_score" : 0.61851376,
+      "_source" : {
+        "tagkey_name" : "Dr.-Wilhelm-Külz-Siedlung",
+        "id" : 319888414,
+        "lon" : "11.973924",
+        "tagkey_place" : "suburb",
+        "laton" : "50.6338024,11.973924",
+        "tagkey_is_in" : "Zeulenroda",
+        "name" : "Dr.-Wilhelm-Külz-Siedlung",
+        "tagkey_nat_name" : "Doktor-Wilhelm-Külz-Siedlung",
+        "place" : "suburb",
+        "tagkey_alt_name" : "Külz-Siedlung",
+        "lat" : "50.6338024"
+      },
+      "highlight" : {
+        "name" : [ "<em>Dr</em>.-Wilhelm-Külz-Siedlung" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "7d0b19b4-de03-43a0-afb9-e2d90a9aa250",
+      "_score" : 0.61851376,
+      "_source" : {
+        "tagkey_population" : 156,
+        "tagkey_name" : "Gebiet der DR",
+        "id" : 2630447713,
+        "lon" : "11.9886894",
+        "tagkey_place" : "suburb",
+        "laton" : "51.4829792,11.9886894",
+        "name" : "Gebiet der DR",
+        "tagkey_wikidata" : "Q1496970",
+        "tagkey_source:name" : "http://www.halle.de/VeroeffentlichungenBinaries/597/706/stadtteilkatalog_2012.pdf",
+        "place" : "suburb",
+        "tagkey_alt_name" : "Gebiet der Deutschen Reichsbahn",
+        "tagkey_wikipedia" : "de:Gebiet der DR (Halle)",
+        "lat" : "51.4829792",
+        "tagkey_ref" : 308
+      },
+      "highlight" : {
+        "name" : [ "Gebiet der <em>DR</em>" ]
+      }
+    }, {
+      "_index" : "quantum",
+      "_type" : "quantum",
+      "_id" : "5837e035-3434-4e3c-bb7f-dfcf8bef666a",
+      "_score" : 0.56162155,
+      "_source" : {
+        "tagkey_name" : "Müller am Baum",
+        "id" : 391323536,
+        "lon" : "11.7891524",
+        "tagkey_place" : "village",
+        "laton" : "47.7830258,11.7891524",
+        "tagkey_postal_code" : 83714,
+        "tagkey_is_in" : "Miesbach,Miesbach,Oberbayern,Bayern,Bundesrepublik Deutschland,Europe",
+        "name" : "Müller am Baum",
+        "place" : "village",
+        "lat" : "47.7830258"
+      },
+      "highlight" : {
+        "name" : [ "<em>Müller</em> am Baum" ]
+      }
+    } ]
+  }
+}
