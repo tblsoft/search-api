@@ -22,6 +22,7 @@ public class SearchIntentLocationFilter extends AbstractFilter {
     private static Set<String> locationBlacklist = new HashSet<>();
     static{
         locationBlacklist.add("thomas");
+        locationBlacklist.add("dr");
 
     }
 
@@ -87,7 +88,6 @@ public class SearchIntentLocationFilter extends AbstractFilter {
 
         document.getDocument().put("location", location);
         document.getDocument().put("other", other);
-        document.getDocument().put("version", getVersion());
         locationSearchIntent.addDocument(document);
 
         pipelineContainer.putSearchResult("search-intent",locationSearchIntent);
@@ -116,10 +116,6 @@ public class SearchIntentLocationFilter extends AbstractFilter {
             tagValues.add(matcher.group(1));
         }
         return tagValues;
-    }
-
-    public String getVersion() {
-        return "1.1.0";
     }
 
 }
