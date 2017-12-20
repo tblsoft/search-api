@@ -38,6 +38,7 @@ public class MockElasticClient extends StandardElasticClient {
     }
 
     String getFilename(String request) {
+        request = request.replaceAll("\\r\\n|\\r|\\n", "");
         String fileName = mockFile;
         if(fileName == null) {
             fileName = DigestUtils.md5Hex(request);
