@@ -22,6 +22,10 @@ public class SearchIntentLocationFilter extends AbstractFilter {
     private static Set<String> locationBlacklist = new HashSet<>();
     static{
         locationBlacklist.add("thomas");
+        locationBlacklist.add("stephan");
+        locationBlacklist.add("jürgen");
+        locationBlacklist.add("peter");
+        locationBlacklist.add("oswald");
         locationBlacklist.add("dr");
 
     }
