@@ -4,13 +4,16 @@ import com.google.common.base.Optional;
 import de.tblsoft.search.pipeline.PipelineContainer;
 import de.tblsoft.search.pipeline.filter.AbstractFilter;
 import de.tblsoft.search.response.SearchResult;
+import de.tblsoft.search.util.JsonUtil;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.noggit.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -42,10 +45,17 @@ public class SolrFilter extends AbstractFilter {
     public PipelineContainer filter(PipelineContainer pipelineContainer) throws Exception {
 
         SolrQuery solrQuery = queryTransformer.transform(pipelineContainer);
-        LOG.info("solr query " + solrQuery.toQueryString());
+
+        if(pipelineContainer.isDebugEnabled()) {
+            pipelineContainer.debug(query2url(this.solrBaseUrl, solrQuery));
+        }
 
 
         QueryResponse solrResponse = solrClient.query(solrQuery);
+        if(pipelineContainer.isDebugEnabled()) {
+            pipelineContainer.debug(queryResponse2Json(solrResponse));
+        }
+
 
         SearchResult searchResult = searchResultTransformer.transform(solrResponse);
         searchResult.setTime(getCurrentTime());
@@ -82,6 +92,9 @@ public class SolrFilter extends AbstractFilter {
     }
 
     public static String query2url(String solrBase, SolrQuery solrQuery) {
+        if(solrBase == null) {
+            solrBase = "";
+        }
         Map<String,String[]> parameters = solrQuery.getMap();
         String requestHandler = Optional.fromNullable(solrQuery.getRequestHandler()).or("select");
         StringBuilder url = new StringBuilder(solrBase);
@@ -101,4 +114,26 @@ public class SolrFilter extends AbstractFilter {
         }
         return url.toString();
     }
+
+    public static Object queryResponse2Json(QueryResponse queryResponse) {
+        Map<String, Object> json = new HashMap<>();
+        json.put("results", toJson(queryResponse.getResults()));
+
+        // TODO facet values
+
+        json.put("facetQuery", queryResponse.getFacetQuery());
+        json.put("facetRanges", queryResponse.getFacetRanges());
+        json.put("intervalFacets", queryResponse.getIntervalFacets());
+        json.put("debugMap", queryResponse.getDebugMap());
+        json.put("explainMap", queryResponse.getExplainMap());
+        json.put("fieldStatsInfo", queryResponse.getFieldStatsInfo());
+        json.put("explainResults", toJson(queryResponse.getExpandedResults()));
+        return json;
+    }
+
+    private static Object toJson(Object object) {
+        return JsonUtil.toJson(JSONUtil.toJSON(object));
+    }
+
+
 }

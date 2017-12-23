@@ -1,6 +1,6 @@
 package de.tblsoft.search.test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tblsoft.search.util.JsonUtil;
 
 /**
  * Created by tbl on 25.11.17.
@@ -10,9 +10,7 @@ public class AbstractPipelineTest {
 
     public void print(Object object) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
-            System.out.println(indented);
+            System.out.println(JsonUtil.toPrettyString(object));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -13,6 +13,7 @@ import de.tblsoft.search.pipeline.filter.elastic.client.StandardElasticClient;
 import de.tblsoft.search.pipeline.filter.web.RequestParser;
 import de.tblsoft.search.response.Document;
 import de.tblsoft.search.response.SearchResult;
+import de.tblsoft.search.util.JsonUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.slf4j.Logger;
@@ -45,7 +46,12 @@ public class ElasticFilter extends AbstractFilter {
         Map<String, String> replaceMap = RequestParser.getRequestParameter(pipelineContainer);
         String request = loadProfile(profile, replaceMap);
 
+        if(pipelineContainer.isDebugEnabled()) {
+            pipelineContainer.debug(JsonUtil.toJson(request));
+        }
+
         ElasticResult elasticResult = elasticClient.request(elasticBaseUrl + "/_search", request);
+        pipelineContainer.debug(elasticResult);
 
         SearchResult searchResult = new SearchResult();
         searchResult.initDocuments();

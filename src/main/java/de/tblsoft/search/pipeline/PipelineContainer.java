@@ -5,7 +5,9 @@ import de.tblsoft.search.response.SearchResult;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +22,10 @@ public class PipelineContainer {
         this.request = request;
         this.response = response;
     }
+
+    private boolean debug = false;
+
+    private List<Object> debugStack = new ArrayList<>();
 
     private SearchQuery searchQuery = new SearchQuery();
     private Map<String, SearchResult> searchResults = new HashMap<>();
@@ -45,6 +51,9 @@ public class PipelineContainer {
 
 
     public void putSearchResult(String name, SearchResult searchResult) {
+        if(isDebugEnabled()) {
+            debugStack.add(searchResult);
+        }
         searchResults.put(name, searchResult);
     }
 
@@ -72,6 +81,24 @@ public class PipelineContainer {
 
     public HttpServletResponse getResponse() {
         return response;
+    }
+
+    public void debug(Object debugObject) {
+        if(debug) {
+            this.debugStack.add(debugObject);
+        }
+    }
+
+    public void enableDebug() {
+        this.debug = true;
+    }
+
+    public boolean isDebugEnabled() {
+        return this.debug;
+    }
+
+    public List<Object> getDebugStack() {
+        return debugStack;
     }
 
     @Override
