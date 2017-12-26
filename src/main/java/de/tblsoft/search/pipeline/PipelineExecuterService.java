@@ -13,7 +13,7 @@ public class PipelineExecuterService {
         this.pipeline = pipeline;
     }
 
-    public PipelineContainer execute(PipelineContainer pipelineContainer) {
+    public PipelineContainer execute(PipelineContainer pipelineContainer) throws PipelineContainerException {
 
         pipelineContainer.start();
 
@@ -23,6 +23,7 @@ public class PipelineExecuterService {
 
 
         for(Filter filter : pipeline.getFilterList()) {
+            failOnError(pipelineContainer);
             try {
                 filter.start();
                 if(filter.isActive()) {
@@ -35,13 +36,19 @@ public class PipelineExecuterService {
             }
         }
 
-
+        failOnError(pipelineContainer);
 
         for(Filter filter : pipeline.getFilterList()) {
             filter.end();
         }
 
         return pipelineContainer;
+    }
+
+    public static void failOnError(PipelineContainer pipelineContainer) throws PipelineContainerException {
+        if(pipelineContainer.isFailOnError() && !pipelineContainer.isSuccess()) {
+            throw new PipelineContainerException(pipelineContainer.getMessage());
+        }
     }
 
 }

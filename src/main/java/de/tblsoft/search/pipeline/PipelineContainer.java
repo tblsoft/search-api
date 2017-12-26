@@ -30,6 +30,8 @@ public class PipelineContainer {
 
     private boolean debug = false;
 
+    private boolean failOnError = true;
+
     private List<Object> debugStack = new ArrayList<>();
 
     private SearchQuery searchQuery = new SearchQuery();
@@ -40,7 +42,7 @@ public class PipelineContainer {
     private HttpServletRequest request;
     private HttpServletResponse response;
 
-    private Long startTime;
+    private Long startTime = System.currentTimeMillis();
 
     public SearchQuery getSearchQuery() {
         return searchQuery;
@@ -137,6 +139,14 @@ public class PipelineContainer {
 
     public void setResponse(HttpServletResponse response) {
         this.response = response;
+    }
+
+    public boolean isFailOnError() {
+        return failOnError;
+    }
+
+    public void setFailOnError(boolean failOnError) {
+        this.failOnError = failOnError;
     }
 
     @Override

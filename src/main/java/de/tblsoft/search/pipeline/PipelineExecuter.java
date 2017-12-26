@@ -44,7 +44,7 @@ public class PipelineExecuter {
 
 
 
-    public PipelineContainer execute() {
+    public PipelineContainer execute() throws PipelineContainerException {
         try {
             ExecutorService executorService = Executors.newFixedThreadPool(1);
             FutureTask<PipelineContainer> futureTask = new FutureTask<>(new PipelineCallable(pipeline, pipelineContainer));
@@ -53,6 +53,7 @@ public class PipelineExecuter {
             pipelineContainer = futureTask.get(pipeline.getTimeout(), TimeUnit.MILLISECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             pipelineContainer.error(e);
+            PipelineExecuterService.failOnError(pipelineContainer);
         }
         return pipelineContainer;
     }

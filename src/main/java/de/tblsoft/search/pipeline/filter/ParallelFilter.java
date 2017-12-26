@@ -1,9 +1,6 @@
 package de.tblsoft.search.pipeline.filter;
 
-import de.tblsoft.search.pipeline.Pipeline;
-import de.tblsoft.search.pipeline.PipelineCallable;
-import de.tblsoft.search.pipeline.PipelineContainer;
-import de.tblsoft.search.pipeline.TimeoutFutureTask;
+import de.tblsoft.search.pipeline.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +56,9 @@ public class ParallelFilter extends AbstractFilter {
                 PipelineContainer value = futureTask.getWithTimeout();
                 results.add(value);
             }
-        } catch (InterruptedException | ExecutionException |TimeoutException e) {
-            e.printStackTrace();
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            pipelineContainer.error(e);
+            PipelineExecuterService.failOnError(pipelineContainer);
         }
 
         // TODO merge searchRequest object
