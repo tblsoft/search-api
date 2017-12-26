@@ -45,7 +45,6 @@ public class PipelineBuilder {
 
 
     public PipelineBuilder filter(Filter filter, String id) {
-        filter.setPipelineId(id);
         pipeline.addFilter(filter);
         return this;
     }
@@ -56,7 +55,6 @@ public class PipelineBuilder {
 
     public PipelineBuilder parallel() {
         parallelFilter = new ParallelFilter(pipeline.getId());
-        parallelFilter.setPipelineId(pipeline.getId());
         pipeline.addFilter(parallelFilter);
         return this;
     }

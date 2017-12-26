@@ -24,8 +24,7 @@ public class PipelineExecuter {
 
         for(Filter filter : pipeline.getFilterList()) {
             try {
-                long start = System.currentTimeMillis();
-                filter.setStartTime(start);
+                filter.start();
                 if(filter.isActive()) {
                     pipelineContainer = filter.filter(pipelineContainer);
                 }

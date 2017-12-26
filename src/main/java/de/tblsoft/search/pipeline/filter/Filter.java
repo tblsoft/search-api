@@ -7,11 +7,11 @@ import de.tblsoft.search.pipeline.PipelineContainer;
  */
 public interface Filter {
 
-    void setStartTime(long startTime);
+    void start();
 
     long getCurrentTime();
 
-    void setPipelineId(String id);
+    void setId(String id);
     void init();
 
     PipelineContainer filter(PipelineContainer pipelineContainer) throws Exception;

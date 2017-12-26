@@ -7,15 +7,15 @@ import de.tblsoft.search.pipeline.PipelineContainer;
  */
 public abstract class AbstractFilter implements Filter {
 
-    private String pipelineId;
+    private String id;
 
     private long startTime;
 
     private boolean active = true;
 
     @Override
-    public void setPipelineId(String pipelineId) {
-        this.pipelineId = pipelineId;
+    public void start() {
+        this.startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -26,15 +26,6 @@ public abstract class AbstractFilter implements Filter {
     @Override
     public void end() {
 
-    }
-
-    public String getPipelineId() {
-        return pipelineId;
-    }
-
-    @Override
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
     }
 
     @Override
@@ -55,5 +46,14 @@ public abstract class AbstractFilter implements Filter {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
     }
 }
