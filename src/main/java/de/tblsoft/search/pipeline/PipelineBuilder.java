@@ -46,6 +46,10 @@ public class PipelineBuilder {
         return parent;
     }
 
+    public PipelineBuilder timeout(long timeout) {
+        pipeline.setTimeout(timeout);
+        return this;
+    }
 
     public PipelineBuilder filter(Filter filter, String id) {
         pipeline.addFilter(filter);

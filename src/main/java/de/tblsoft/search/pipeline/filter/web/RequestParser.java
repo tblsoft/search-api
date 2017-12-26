@@ -33,10 +33,12 @@ public class RequestParser {
             }
 
 
-            for(Cookie cookie : pipelineContainer.getRequest().getCookies()) {
-                String name = cookie.getName();
-                String value = cookie.getValue();
-                replaceMap.put("cookie." + name, value);
+            if(pipelineContainer.getRequest().getCookies() != null) {
+                for (Cookie cookie : pipelineContainer.getRequest().getCookies()) {
+                    String name = cookie.getName();
+                    String value = cookie.getValue();
+                    replaceMap.put("cookie." + name, value);
+                }
             }
 
             String path = pipelineContainer.getRequest().getRequestURI();

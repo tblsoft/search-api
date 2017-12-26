@@ -36,6 +36,7 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
 
         Pipeline pipeline = PipelineBuilder.create().
                 pipeline("locationLookup").
+                timeout(1000L).
                     filter(qsqlRequestFilter).
                     filter(elasticFilter).
                     filter(searchIntentLocationFilter).

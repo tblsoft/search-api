@@ -25,6 +25,7 @@ public class SolrPipelineTest extends AbstractPipelineTest {
 
         Pipeline pipeline = PipelineBuilder.create().
                 pipeline("products").
+                timeout(1000L).
                 filter(SolrFilterBuilder.create().
                         solrClient(mockSolrClient).
                         param("q","${q}").
@@ -58,6 +59,11 @@ public class SolrPipelineTest extends AbstractPipelineTest {
                 pipeline(pipeline).
                 httpRequest(httpServletRequest).
                 execute();
+
+
+        if(!pipelineContainer.isSuccess()) {
+            Assert.fail();
+        }
 
         SearchResult searchResult = pipelineContainer.getSearchResult("products");
         Assert.assertEquals(Long.valueOf(34), searchResult.getTotal());
