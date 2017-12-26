@@ -1,10 +1,7 @@
 package de.tblsoft.search.pipeline.filter;
 
 import de.tblsoft.search.mock.Mockfactory;
-import de.tblsoft.search.pipeline.Pipeline;
-import de.tblsoft.search.pipeline.PipelineBuilder;
-import de.tblsoft.search.pipeline.PipelineContainer;
-import de.tblsoft.search.pipeline.PipelineExecuter;
+import de.tblsoft.search.pipeline.*;
 import de.tblsoft.search.pipeline.filter.elastic.ElasticFilter;
 import de.tblsoft.search.pipeline.filter.elastic.MockElasticClient;
 import de.tblsoft.search.pipeline.filter.qsql.QSQLRequestFilter;
@@ -46,9 +43,8 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
 
 
         HttpServletRequest httpServletRequest = Mockfactory.createHttpServletRequest("http://localhost/foo/bar?q=Dr.%20Thomas%20M%C3%BCller%20Darmstadt");
-        PipelineExecuter pipelineExecuter = new PipelineExecuter(pipeline);
         PipelineContainer pipelineContainer = new PipelineContainer(httpServletRequest, null);
-        pipelineContainer = pipelineExecuter.execute(pipelineContainer);
+        pipelineContainer = PipelineExecuter.execute(pipeline,pipelineContainer);
 
         SearchResult searchResult = pipelineContainer.getSearchResult("search-intent");
         searchResult.setTime(pipelineContainer.currentTime());

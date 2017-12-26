@@ -12,6 +12,8 @@ public class Pipeline {
 
     private String id;
 
+    private long timeout = 1000L;
+
     private List<Filter> filterList = new ArrayList<>();
 
     public Pipeline(String id) {
@@ -36,6 +38,14 @@ public class Pipeline {
 
     public void addFilter(Filter filter) {
         this.filterList.add(filter);
+    }
+
+    public long getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(long timeout) {
+        this.timeout = timeout;
     }
 
     @Override

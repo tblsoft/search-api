@@ -1,45 +1,27 @@
 package de.tblsoft.search.pipeline;
 
-import de.tblsoft.search.pipeline.filter.Filter;
+import java.util.concurrent.*;
 
 /**
- * Created by tbl on 11.11.17.
+ * Created by tbl on 26.12.17.
  */
 public class PipelineExecuter {
 
-    private Pipeline pipeline;
+    public static PipelineContainer execute(Pipeline pipeline, PipelineContainer pipelineContainer) {
 
-    public PipelineExecuter(Pipeline pipeline) {
-        this.pipeline = pipeline;
-    }
-
-    public PipelineContainer execute(PipelineContainer pipelineContainer) {
-
-        pipelineContainer.start();
-
-        for(Filter filter : pipeline.getFilterList()) {
-            filter.init();
+        try {
+            ExecutorService executorService = Executors.newFixedThreadPool(1);
+            FutureTask<PipelineContainer> futureTask = new FutureTask<>(new PipelineCallable(pipeline, pipelineContainer));
+            executorService.execute(futureTask);
+            executorService.shutdown();
+            return futureTask.get(pipeline.getTimeout(), TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
         }
-
-
-        for(Filter filter : pipeline.getFilterList()) {
-            try {
-                filter.start();
-                if(filter.isActive()) {
-                    pipelineContainer = filter.filter(pipelineContainer);
-                }
-            } catch (Exception e) {
-                filter.onError(pipelineContainer, e);
-            }
-        }
-
-
-
-        for(Filter filter : pipeline.getFilterList()) {
-            filter.end();
-        }
-
         return pipelineContainer;
     }
-
 }

@@ -3,13 +3,14 @@ package de.tblsoft.search.pipeline.filter;
 import de.tblsoft.search.pipeline.Pipeline;
 import de.tblsoft.search.pipeline.PipelineCallable;
 import de.tblsoft.search.pipeline.PipelineContainer;
+import de.tblsoft.search.pipeline.TimeoutFutureTask;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by tbl on 04.11.17.
@@ -40,25 +41,25 @@ public class ParallelFilter extends AbstractFilter {
 
     @Override
     public PipelineContainer filter(PipelineContainer pipelineContainer) throws Exception {
-        List<FutureTask<PipelineContainer>> futureTaskList = new ArrayList<>();
+        List<TimeoutFutureTask<PipelineContainer>> futureTaskList = new ArrayList<>();
 
         for(Pipeline pipeline: pipelines) {
-            futureTaskList.add(new FutureTask<>(new PipelineCallable(pipeline, pipelineContainer)));
+            futureTaskList.add(new TimeoutFutureTask<>(new PipelineCallable(pipeline, pipelineContainer), pipeline.getTimeout()));
         }
 
 
-        for(FutureTask<PipelineContainer> futureTask :futureTaskList) {
+        for(TimeoutFutureTask<PipelineContainer> futureTask :futureTaskList) {
             executorService.execute(futureTask);
         }
 
 
         List<PipelineContainer> results = new ArrayList<>();
         try {
-            for(FutureTask<PipelineContainer> futureTask :futureTaskList) {
-                PipelineContainer value = futureTask.get();
+            for(TimeoutFutureTask<PipelineContainer> futureTask :futureTaskList) {
+                PipelineContainer value = futureTask.getWithTimeout();
                 results.add(value);
             }
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (InterruptedException | ExecutionException |TimeoutException e) {
             e.printStackTrace();
         }
 

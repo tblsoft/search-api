@@ -18,8 +18,8 @@ public class PipelineCallable implements Callable<PipelineContainer> {
 
     @Override
     public PipelineContainer call() throws Exception {
-        PipelineExecuter pipelineExecuter = new PipelineExecuter(pipeline);
-        PipelineContainer processedPipelineContainer = pipelineExecuter.execute(pipelineContainer);
+        PipelineExecuterService pipelineExecuterService = new PipelineExecuterService(pipeline);
+        PipelineContainer processedPipelineContainer = pipelineExecuterService.execute(pipelineContainer);
         return processedPipelineContainer;
     }
 }

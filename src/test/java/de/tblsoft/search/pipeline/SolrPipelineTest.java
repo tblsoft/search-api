@@ -53,9 +53,8 @@ public class SolrPipelineTest extends AbstractPipelineTest {
                 build();
 
         HttpServletRequest httpServletRequest = Mockfactory.createHttpServletRequest("http://localhost?q=*:*&foo=bar");
-        PipelineExecuter pipelineExecuter = new PipelineExecuter(pipeline);
         PipelineContainer pipelineContainer = new PipelineContainer(httpServletRequest, null);
-        pipelineContainer = pipelineExecuter.execute(pipelineContainer);
+        pipelineContainer = PipelineExecuter.execute(pipeline,pipelineContainer);
 
         SearchResult searchResult = pipelineContainer.getSearchResult("products");
         Assert.assertEquals(Long.valueOf(34), searchResult.getTotal());
