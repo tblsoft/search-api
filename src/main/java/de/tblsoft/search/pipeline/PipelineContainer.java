@@ -23,6 +23,10 @@ public class PipelineContainer {
         this.response = response;
     }
 
+    private boolean success = false;
+
+    private StringBuilder message = new StringBuilder();
+
     private boolean debug = false;
 
     private List<Object> debugStack = new ArrayList<>();
@@ -99,6 +103,22 @@ public class PipelineContainer {
 
     public List<Object> getDebugStack() {
         return debugStack;
+    }
+
+    public void error(String message) {
+        this.success = false;
+        if(this.message.length() != 0) {
+            this.message.append(" ");
+        }
+        this.message.append(message);
+    }
+
+    public void setRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    public void setResponse(HttpServletResponse response) {
+        this.response = response;
     }
 
     @Override

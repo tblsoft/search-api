@@ -42,6 +42,13 @@ https://spring.io/guides/gs/circuit-breaker/
 ## Testing
 https://dzone.com/articles/junit-testing-for-solr-6
 
+## Benchmark
+http://openjdk.java.net/projects/code-tools/jmh/
+
+## Metrics
+- top n keywords
+- 
+
 
 ## License
 [MIT](https://github.com/tblsoft/search-api/blob/master/LICENSE)

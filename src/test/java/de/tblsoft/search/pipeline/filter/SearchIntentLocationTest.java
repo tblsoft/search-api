@@ -43,8 +43,11 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
 
 
         HttpServletRequest httpServletRequest = Mockfactory.createHttpServletRequest("http://localhost/foo/bar?q=Dr.%20Thomas%20M%C3%BCller%20Darmstadt");
-        PipelineContainer pipelineContainer = new PipelineContainer(httpServletRequest, null);
-        pipelineContainer = PipelineExecuter.execute(pipeline,pipelineContainer);
+
+        PipelineContainer pipelineContainer = PipelineExecuter.create().
+                pipeline(pipeline).
+                httpRequest(httpServletRequest).
+                execute();
 
         SearchResult searchResult = pipelineContainer.getSearchResult("search-intent");
         searchResult.setTime(pipelineContainer.currentTime());

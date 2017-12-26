@@ -1,5 +1,7 @@
 package de.tblsoft.search.pipeline;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.*;
 
 /**
@@ -7,20 +9,53 @@ import java.util.concurrent.*;
  */
 public class PipelineExecuter {
 
-    public static PipelineContainer execute(Pipeline pipeline, PipelineContainer pipelineContainer) {
+    private Pipeline pipeline;
 
+    private PipelineContainer pipelineContainer;
+
+    public static PipelineExecuter create() {
+        return new PipelineExecuter();
+    }
+
+    public PipelineExecuter httpRequest(HttpServletRequest httpServletRequest) {
+        getPipelineContainer().setRequest(httpServletRequest);
+        return this;
+    }
+
+    public PipelineExecuter httpResponse(HttpServletResponse httpServletResponse) {
+        getPipelineContainer().setResponse(httpServletResponse);
+        return this;
+    }
+
+
+    public PipelineExecuter enableDebug() {
+        getPipelineContainer().enableDebug();
+        return this;
+    }
+
+    public PipelineExecuter pipeline(Pipeline pipeline) {
+        this.pipeline = pipeline;
+        return this;
+    }
+
+
+
+    public PipelineContainer execute() {
         try {
             ExecutorService executorService = Executors.newFixedThreadPool(1);
             FutureTask<PipelineContainer> futureTask = new FutureTask<>(new PipelineCallable(pipeline, pipelineContainer));
             executorService.execute(futureTask);
             executorService.shutdown();
-            return futureTask.get(pipeline.getTimeout(), TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
+            pipelineContainer = futureTask.get(pipeline.getTimeout(), TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            pipelineContainer.error(e.getMessage());
+        }
+        return pipelineContainer;
+    }
+
+    public PipelineContainer getPipelineContainer() {
+        if(this.pipelineContainer == null) {
+            this.pipelineContainer = new PipelineContainer();
         }
         return pipelineContainer;
     }
