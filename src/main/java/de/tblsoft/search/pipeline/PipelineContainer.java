@@ -113,7 +113,7 @@ public class PipelineContainer {
     public void error(String message) {
         this.success = false;
         if(this.message.length() != 0) {
-            this.message.append(" ");
+            this.message.append("\n");
         }
         this.message.append(message);
     }
