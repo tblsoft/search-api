@@ -49,6 +49,10 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
                 httpRequest(httpServletRequest).
                 execute();
 
+        if(!pipelineContainer.isSuccess()) {
+            Assert.fail();
+        }
+
         SearchResult searchResult = pipelineContainer.getSearchResult("search-intent");
         searchResult.setTime(pipelineContainer.currentTime());
 

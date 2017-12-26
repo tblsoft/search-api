@@ -27,6 +27,10 @@ public class PipelineExecuter {
         return this;
     }
 
+    public PipelineExecuter debug(boolean debug) {
+        getPipelineContainer().setDebug(debug);
+        return this;
+    }
 
     public PipelineExecuter enableDebug() {
         getPipelineContainer().enableDebug();
@@ -48,7 +52,7 @@ public class PipelineExecuter {
             executorService.shutdown();
             pipelineContainer = futureTask.get(pipeline.getTimeout(), TimeUnit.MILLISECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            pipelineContainer.error(e.getMessage());
+            pipelineContainer.error(e);
         }
         return pipelineContainer;
     }

@@ -12,6 +12,8 @@ public interface Filter {
     long getCurrentTime();
 
     void setId(String id);
+
+    String getId();
     void init();
 
     PipelineContainer filter(PipelineContainer pipelineContainer) throws Exception;
@@ -21,4 +23,5 @@ public interface Filter {
     void end();
 
     boolean isActive();
+
 }

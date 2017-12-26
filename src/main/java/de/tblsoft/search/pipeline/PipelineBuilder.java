@@ -3,6 +3,9 @@ package de.tblsoft.search.pipeline;
 import de.tblsoft.search.pipeline.filter.Filter;
 import de.tblsoft.search.pipeline.filter.ParallelFilter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by tbl on 11.11.17.
  */
@@ -65,10 +68,29 @@ public class PipelineBuilder {
     }
 
     public Pipeline build() {
+        ensureFilterIds();
         return pipeline;
     }
 
     public void setParent(PipelineBuilder parent) {
         this.parent = parent;
+    }
+
+
+    public void ensureFilterIds() {
+        Set<String> alreadyUsedIds = new HashSet<>();
+
+        for(Filter filter : pipeline.getFilterList()) {
+            if(filter.getId() == null) {
+                String suggestedId = pipeline.getId() + "." + filter.getClass().getSimpleName();
+                int counter = 1;
+                while(alreadyUsedIds.contains(suggestedId)) {
+                    suggestedId = suggestedId + counter++;
+                }
+                alreadyUsedIds.add(suggestedId);
+                filter.setId(suggestedId);
+            }
+        }
+
     }
 }
