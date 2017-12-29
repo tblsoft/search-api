@@ -38,25 +38,33 @@ public class ParallelFilter extends AbstractFilter {
 
     @Override
     public PipelineContainer filter(PipelineContainer pipelineContainer) throws Exception {
-        List<TimeoutFutureTask<PipelineContainer>> futureTaskList = new ArrayList<>();
+        List<PipelineFutureTask<PipelineContainer>> futureTaskList = new ArrayList<>();
 
         for(Pipeline pipeline: pipelines) {
-            futureTaskList.add(new TimeoutFutureTask<>(new PipelineCallable(pipeline, pipelineContainer), pipeline.getTimeout()));
+            futureTaskList.add(new PipelineFutureTask<>(new PipelineCallable(pipeline, pipelineContainer), pipeline));
         }
 
 
-        for(TimeoutFutureTask<PipelineContainer> futureTask :futureTaskList) {
+        for(PipelineFutureTask<PipelineContainer> futureTask :futureTaskList) {
             executorService.execute(futureTask);
         }
 
 
         List<PipelineContainer> results = new ArrayList<>();
+        Pipeline currentPipeline = null;
         try {
-            for(TimeoutFutureTask<PipelineContainer> futureTask :futureTaskList) {
+            for(PipelineFutureTask<PipelineContainer> futureTask :futureTaskList) {
+                currentPipeline = futureTask.getPipeline();
                 PipelineContainer value = futureTask.getWithTimeout();
                 results.add(value);
             }
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+        } catch (TimeoutException e) {
+            if(currentPipeline != null) {
+                pipelineContainer.error("The pipeline " + currentPipeline.getId() + " did not finished in " + currentPipeline.getTimeout() + " ms.");
+            }
+            pipelineContainer.error(e);
+            PipelineExecuterService.failOnError(pipelineContainer);
+        } catch (InterruptedException | ExecutionException e) {
             pipelineContainer.error(e);
             PipelineExecuterService.failOnError(pipelineContainer);
         }
