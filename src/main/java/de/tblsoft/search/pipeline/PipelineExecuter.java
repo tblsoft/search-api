@@ -51,8 +51,11 @@ public class PipelineExecuter {
             executorService.execute(futureTask);
             executorService.shutdown();
             pipelineContainer = futureTask.get(pipeline.getTimeout(), TimeUnit.MILLISECONDS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+        } catch (TimeoutException e) {
             pipelineContainer.error("The pipeline " + pipeline.getId() + " did not finished in " + pipeline.getTimeout() + " ms.");
+            pipelineContainer.error(e);
+            PipelineExecuterService.failOnError(pipelineContainer);
+        } catch (InterruptedException | ExecutionException e) {
             pipelineContainer.error(e);
             PipelineExecuterService.failOnError(pipelineContainer);
         }
