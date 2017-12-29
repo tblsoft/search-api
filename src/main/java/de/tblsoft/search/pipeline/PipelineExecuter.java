@@ -49,13 +49,16 @@ public class PipelineExecuter {
 
 
 
-    public PipelineContainer execute() throws PipelineContainerException {
+    public PipelineContainer execute() throws PipelineContainerException, PipelineContainerDebugException {
         try {
             ExecutorService executorService = Executors.newFixedThreadPool(1);
             FutureTask<PipelineContainer> futureTask = new FutureTask<>(new PipelineCallable(pipeline, pipelineContainer));
             executorService.execute(futureTask);
             pipelineContainer = futureTask.get(pipeline.getTimeout(), TimeUnit.MILLISECONDS);
             executorService.shutdown();
+            if(pipelineContainer.isDebugEnabled()) {
+                throw new PipelineContainerDebugException(pipelineContainer);
+            }
         } catch (TimeoutException e) {
             pipelineContainer.error("The pipeline " + pipeline.getId() + " did not finished in " + pipeline.getTimeout() + " ms.");
             pipelineContainer.error(e);

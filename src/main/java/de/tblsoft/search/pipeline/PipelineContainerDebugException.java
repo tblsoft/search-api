@@ -1,6 +1,5 @@
 package de.tblsoft.search.pipeline;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,13 +7,13 @@ import java.util.List;
  */
 public class PipelineContainerDebugException extends Exception {
 
-    private List<Object> debugStack = new ArrayList<>();
+    private PipelineContainer pipelineContainer;
 
-    public PipelineContainerDebugException(List<Object> debugStack) {
-        this.debugStack = debugStack;
+    public PipelineContainerDebugException(PipelineContainer pipelineContainer) {
+        this.pipelineContainer = pipelineContainer;
     }
 
     public List<Object> getDebugStack() {
-        return debugStack;
+        return this.pipelineContainer.getDebugStack();
     }
 }
