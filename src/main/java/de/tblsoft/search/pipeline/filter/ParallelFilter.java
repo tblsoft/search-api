@@ -51,23 +51,22 @@ public class ParallelFilter extends AbstractFilter {
 
 
         List<PipelineContainer> results = new ArrayList<>();
-        Pipeline currentPipeline = null;
-        try {
+
             for(PipelineFutureTask<PipelineContainer> futureTask :futureTaskList) {
-                currentPipeline = futureTask.getPipeline();
-                PipelineContainer value = futureTask.getWithTimeout();
-                results.add(value);
+                try {
+                    PipelineContainer value = futureTask.getWithTimeout();
+                    results.add(value);
+                } catch (TimeoutException e) {
+                    Pipeline pipeline = futureTask.getPipeline();
+                    pipelineContainer.error("The pipeline " + pipeline.getId() + " did not finished in " + pipeline.getTimeout() + " ms.");
+                    pipelineContainer.error(e);
+                    PipelineExecuterService.failOnError(pipelineContainer);
+                } catch (InterruptedException | ExecutionException e) {
+                    pipelineContainer.error(e);
+                    PipelineExecuterService.failOnError(pipelineContainer);
+                }
             }
-        } catch (TimeoutException e) {
-            if(currentPipeline != null) {
-                pipelineContainer.error("The pipeline " + currentPipeline.getId() + " did not finished in " + currentPipeline.getTimeout() + " ms.");
-            }
-            pipelineContainer.error(e);
-            PipelineExecuterService.failOnError(pipelineContainer);
-        } catch (InterruptedException | ExecutionException e) {
-            pipelineContainer.error(e);
-            PipelineExecuterService.failOnError(pipelineContainer);
-        }
+
 
         // TODO merge searchRequest object
 
