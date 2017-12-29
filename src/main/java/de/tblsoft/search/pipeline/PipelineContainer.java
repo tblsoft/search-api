@@ -1,5 +1,6 @@
 package de.tblsoft.search.pipeline;
 
+import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
 import de.tblsoft.search.query.SearchQuery;
 import de.tblsoft.search.response.SearchResult;
@@ -114,6 +115,9 @@ public class PipelineContainer {
 
     public void error(String message) {
         this.success = false;
+        if(Strings.isNullOrEmpty(message)) {
+            return;
+        }
         if(this.message.length() != 0) {
             this.message.append("\n");
         }
