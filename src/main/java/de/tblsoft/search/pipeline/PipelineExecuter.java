@@ -27,6 +27,11 @@ public class PipelineExecuter {
         return this;
     }
 
+    public PipelineExecuter failOnError(boolean failOnError) {
+        getPipelineContainer().setFailOnError(failOnError);
+        return this;
+    }
+
     public PipelineExecuter debug(boolean debug) {
         getPipelineContainer().setDebug(debug);
         return this;
