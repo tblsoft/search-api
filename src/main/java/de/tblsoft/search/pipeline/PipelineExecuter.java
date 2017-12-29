@@ -54,8 +54,8 @@ public class PipelineExecuter {
             ExecutorService executorService = Executors.newFixedThreadPool(1);
             FutureTask<PipelineContainer> futureTask = new FutureTask<>(new PipelineCallable(pipeline, pipelineContainer));
             executorService.execute(futureTask);
-            executorService.shutdown();
             pipelineContainer = futureTask.get(pipeline.getTimeout(), TimeUnit.MILLISECONDS);
+            executorService.shutdown();
         } catch (TimeoutException e) {
             pipelineContainer.error("The pipeline " + pipeline.getId() + " did not finished in " + pipeline.getTimeout() + " ms.");
             pipelineContainer.error(e);

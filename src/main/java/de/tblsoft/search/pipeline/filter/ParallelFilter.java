@@ -1,6 +1,8 @@
 package de.tblsoft.search.pipeline.filter;
 
 import de.tblsoft.search.pipeline.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.concurrent.TimeoutException;
  * Created by tbl on 04.11.17.
  */
 public class ParallelFilter extends AbstractFilter {
+
+    private static Logger LOG = LoggerFactory.getLogger(ParallelFilter.class);
 
 
     private List<Pipeline> pipelines = new ArrayList<>();
@@ -54,6 +58,7 @@ public class ParallelFilter extends AbstractFilter {
 
             for(PipelineFutureTask<PipelineContainer> futureTask :futureTaskList) {
                 try {
+                    LOG.debug("getting result for pipeline " + futureTask.getPipeline().getId());
                     PipelineContainer value = futureTask.getWithTimeout();
                     results.add(value);
                 } catch (TimeoutException e) {
