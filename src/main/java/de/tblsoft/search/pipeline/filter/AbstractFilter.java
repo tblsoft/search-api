@@ -35,7 +35,8 @@ public abstract class AbstractFilter implements Filter {
 
     @Override
     public PipelineContainer onError(PipelineContainer pipelineContainer, Exception e) {
-        e.printStackTrace();
+        pipelineContainer.error("error in filter: " + getId());
+        pipelineContainer.error(e);
         return pipelineContainer;
     }
 
@@ -55,5 +56,13 @@ public abstract class AbstractFilter implements Filter {
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+
+    public StringBuilder print() {
+        StringBuilder printer = new StringBuilder();
+        printer.append("id: " + getId());
+        printer.append("active: " + isActive());
+
+        return new StringBuilder();
     }
 }

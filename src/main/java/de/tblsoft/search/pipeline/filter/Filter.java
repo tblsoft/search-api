@@ -24,4 +24,6 @@ public interface Filter {
 
     boolean isActive();
 
+    StringBuilder print();
+
 }

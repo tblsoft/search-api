@@ -30,8 +30,6 @@ public class PipelineExecuterService {
                     pipelineContainer = filter.filter(pipelineContainer);
                 }
             } catch (Exception e) {
-                pipelineContainer.error("error in filter: " + filter.getId());
-                pipelineContainer.error(e);
                 filter.onError(pipelineContainer, e);
             }
         }
