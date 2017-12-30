@@ -1,11 +1,15 @@
 package de.tblsoft.search.pipeline;
 
 import de.tblsoft.search.pipeline.filter.Filter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by tbl on 11.11.17.
  */
 public class PipelineExecuterService {
+
+    private static Logger LOG = LoggerFactory.getLogger(PipelineExecuterService.class);
 
     private Pipeline pipeline;
 
@@ -29,6 +33,7 @@ public class PipelineExecuterService {
                 if(filter.isActive()) {
                     pipelineContainer = filter.filter(pipelineContainer);
                 }
+                LOG.debug("The filter: " + filter.getId() + " took: " + filter.getCurrentTime() + " ms.");
             } catch (Exception e) {
                 filter.onError(pipelineContainer, e);
             }
