@@ -82,7 +82,7 @@ public class ParallelFilter extends AbstractFilter {
     public StringBuilder print(String indent) {
         StringBuilder printer =  super.print(indent);
         for(Pipeline pipeline: pipelines) {
-            printer.append(pipeline.print(indent).append("\n"));
+            printer.append(pipeline.print(indent + "\t").append("\n"));
         }
         return printer;
 
