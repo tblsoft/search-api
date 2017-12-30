@@ -14,6 +14,7 @@ import de.tblsoft.search.pipeline.filter.web.RequestParser;
 import de.tblsoft.search.response.Document;
 import de.tblsoft.search.response.SearchResult;
 import de.tblsoft.search.util.JsonUtil;
+import de.tblsoft.search.util.PrintUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.slf4j.Logger;
@@ -111,6 +112,15 @@ public class ElasticFilter extends AbstractFilter {
         StrSubstitutor strSubstitutor = new StrSubstitutor(vars);
         profile = strSubstitutor.replace(profile);
         return profile;
+    }
+
+    @Override
+    public StringBuilder print(String indent) {
+        StringBuilder printer =  super.print(indent);
+        PrintUtil.printKeyValue(printer, indent, "profile", getProfile());
+        PrintUtil.printKeyValue(printer, indent, "elasticBaseUrl", getElasticBaseUrl());
+        PrintUtil.printKeyValue(printer, indent, "resultSetId", getResultSetId());
+        return printer;
     }
 
     public String getProfile() {

@@ -24,6 +24,6 @@ public interface Filter {
 
     boolean isActive();
 
-    StringBuilder print();
+    StringBuilder print(String indent);
 
 }

@@ -5,6 +5,7 @@ import de.tblsoft.search.pipeline.PipelineContainer;
 import de.tblsoft.search.pipeline.filter.AbstractFilter;
 import de.tblsoft.search.response.SearchResult;
 import de.tblsoft.search.util.JsonUtil;
+import de.tblsoft.search.util.PrintUtil;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -133,6 +134,18 @@ public class SolrFilter extends AbstractFilter {
 
     private static Object toJson(Object object) {
         return JsonUtil.toJson(JSONUtil.toJSON(object));
+    }
+
+    @Override
+    public StringBuilder print(String indent) {
+        StringBuilder printer =  super.print(indent);
+        PrintUtil.printKeyValue(printer, indent, "solrBaseUrl", solrBaseUrl);
+        PrintUtil.printKeyValue(printer, indent, "resultSetId", resultSetId);
+        PrintUtil.printKeyValue(printer, indent, "searchResultTransformer", searchResultTransformer.getClass().getSimpleName());
+        printer.append(searchResultTransformer.print(indent + "\t"));
+        PrintUtil.printKeyValue(printer, indent, "queryTransformer", queryTransformer.getClass().getSimpleName());
+        printer.append(queryTransformer.print(indent + "\t"));
+        return printer;
     }
 
 

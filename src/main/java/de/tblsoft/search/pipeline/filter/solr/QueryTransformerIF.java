@@ -10,4 +10,6 @@ public interface QueryTransformerIF {
 
 
     SolrQuery transform(PipelineContainer pipelineContainer);
+
+    StringBuilder print(String indent);
 }

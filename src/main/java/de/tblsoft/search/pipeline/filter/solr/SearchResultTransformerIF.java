@@ -10,9 +10,11 @@ import org.apache.solr.common.SolrDocument;
  */
 public interface SearchResultTransformerIF {
 
-    public SearchResult transform(QueryResponse queryResponse);
+    SearchResult transform(QueryResponse queryResponse);
 
-    public Document transformDocument(SolrDocument solrDocument);
+    Document transformDocument(SolrDocument solrDocument);
 
-    public void transformField(Document document, String name, Object value);
+    void transformField(Document document, String name, Object value);
+
+    StringBuilder print(String indent);
 }

@@ -48,6 +48,16 @@ public class Pipeline {
         this.timeout = timeout;
     }
 
+    public StringBuilder print(String indent) {
+        StringBuilder printer = new StringBuilder();
+        printer.append(indent).append("pipeline: ").append(getId()).append("\n");
+        printer.append(indent).append("\t").append("timeout: ").append(getTimeout()).append("\n");
+        for(Filter filter : getFilterList()) {
+            printer.append(filter.print(indent + "\t"));
+        }
+        return printer;
+    }
+
     @Override
     public String toString() {
         return "Pipeline{" +

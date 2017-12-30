@@ -6,6 +6,7 @@ import de.tblsoft.search.response.Facet;
 import de.tblsoft.search.response.FacetValue;
 import de.tblsoft.search.response.SearchResult;
 import de.tblsoft.search.util.EncodingUtil;
+import de.tblsoft.search.util.PrintUtil;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -137,5 +138,14 @@ public class Solr2SearchResultMappingTransformer implements SearchResultTransfor
 
     public void addResultField(String resultFieldName, String value) {
         resultFields.put(resultFieldName, value);
+    }
+
+    public StringBuilder print(String indent) {
+        StringBuilder printer = new StringBuilder();
+        PrintUtil.printMap(printer,indent, "fieldMapping", fieldMapping);
+        PrintUtil.printMap(printer,indent, "resultFields", resultFields);
+        PrintUtil.printMap(printer,indent, "facetMapping", facetMapping);
+        PrintUtil.printMap(printer,indent, "facetNameMapping", facetNameMapping);
+        return printer;
     }
 }

@@ -2,6 +2,7 @@ package de.tblsoft.search.pipeline.filter.solr;
 
 import de.tblsoft.search.pipeline.PipelineContainer;
 import de.tblsoft.search.pipeline.filter.web.RequestParser;
+import de.tblsoft.search.util.PrintUtil;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.apache.solr.client.solrj.SolrQuery;
 
@@ -34,6 +35,13 @@ public class SolrParameterQueryTransformer implements QueryTransformerIF {
         }
 
         return solrQuery;
+    }
+
+    public StringBuilder print(String indent) {
+        StringBuilder printer = new StringBuilder();
+        PrintUtil.printMap(printer,indent, "parameters", parameters);
+        PrintUtil.printKeyValue(printer,indent, "fieldList", fieldList);
+        return printer;
     }
 
     public void addParam(String name, String value){

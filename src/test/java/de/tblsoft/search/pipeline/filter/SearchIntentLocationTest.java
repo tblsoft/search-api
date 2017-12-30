@@ -31,7 +31,6 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
         elasticFilter.setProfile("classpath://de/tblsoft/search/elastic/profiles/location.json");
         elasticFilter.setElasticClient(mockElasticClient);
 
-
         SearchIntentLocationFilter searchIntentLocationFilter = new SearchIntentLocationFilter();
 
         Pipeline pipeline = PipelineBuilder.create().
@@ -41,6 +40,8 @@ public class SearchIntentLocationTest extends AbstractPipelineTest {
                     filter(elasticFilter).
                     filter(searchIntentLocationFilter).
                 build();
+
+        Assert.assertNotNull(pipeline.print(""));
 
 
         HttpServletRequest httpServletRequest = Mockfactory.createHttpServletRequest("http://localhost/foo/bar?q=Dr.%20Thomas%20M%C3%BCller%20Darmstadt");
