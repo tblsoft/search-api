@@ -20,6 +20,7 @@ public class PipelineExecuterService {
     public PipelineContainer execute(PipelineContainer pipelineContainer) throws PipelineContainerException {
 
         pipelineContainer.start();
+        long start = System.currentTimeMillis();
 
         for(Filter filter : pipeline.getFilterList()) {
             filter.init();
@@ -44,7 +45,8 @@ public class PipelineExecuterService {
         for(Filter filter : pipeline.getFilterList()) {
             filter.end();
         }
-
+        long took = System.currentTimeMillis() - start;
+        LOG.debug("The pipeline: " + pipeline.getId() + " took: " + took + " ms.");
         return pipelineContainer;
     }
 
