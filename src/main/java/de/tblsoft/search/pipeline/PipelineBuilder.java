@@ -21,7 +21,7 @@ public class PipelineBuilder {
         return new PipelineBuilder();
     }
 
-    public PipelineBuilder pipeline(String id) {
+    public PipelineBuilder pipeline(String id) throws PipelineContainerException {
         if(this.pipeline == null) {
             pipeline = new Pipeline(id);
             return this;
@@ -66,14 +66,26 @@ public class PipelineBuilder {
         return this;
     }
 
-    public PipelineBuilder sequential() {
+    public PipelineBuilder sequential() throws PipelineContainerException {
         parent.parallelFilter.addPipeline(this.build());
         return parent;
     }
 
-    public Pipeline build() {
+    public Pipeline build() throws PipelineContainerException {
         ensureFilterIds();
+        validate();
         return pipeline;
+    }
+
+    public void validate() throws PipelineContainerException{
+        PipelineValidation pipelineValidation = pipeline.validate(new PipelineValidation());
+        if(!pipelineValidation.isValid()) {
+            StringBuilder errorMessage = new StringBuilder();
+            for(PipelineValidationError error : pipelineValidation.getPipelineValidationErrors()) {
+                errorMessage.append(error.getMessage()).append("\n");
+            }
+            throw new PipelineContainerException(errorMessage.toString());
+        }
     }
 
     public void setParent(PipelineBuilder parent) {

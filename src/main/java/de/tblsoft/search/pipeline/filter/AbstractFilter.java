@@ -1,6 +1,8 @@
 package de.tblsoft.search.pipeline.filter;
 
+import com.google.common.base.Strings;
 import de.tblsoft.search.pipeline.PipelineContainer;
+import de.tblsoft.search.pipeline.PipelineValidation;
 import de.tblsoft.search.util.PrintUtil;
 
 /**
@@ -65,5 +67,13 @@ public abstract class AbstractFilter implements Filter {
         printer.append(indent).append("filter: ").append(getId()).append("\n");
         PrintUtil.printKeyValue(printer,indent, "acitve", String.valueOf(isActive()));
         return printer;
+    }
+
+    @Override
+    public PipelineValidation validate(PipelineValidation pipelineValidation) {
+        if(Strings.isNullOrEmpty(this.getId())) {
+            pipelineValidation.error("The id for the filter is missing.");
+        }
+        return pipelineValidation;
     }
 }

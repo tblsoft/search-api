@@ -58,6 +58,14 @@ public class Pipeline {
         return printer;
     }
 
+    public PipelineValidation validate(PipelineValidation pipelineValidation) {
+
+        for(Filter filter : getFilterList()) {
+            pipelineValidation = filter.validate(pipelineValidation);
+        }
+        return pipelineValidation;
+    }
+
     @Override
     public String toString() {
         return "Pipeline{" +

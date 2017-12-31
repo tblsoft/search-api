@@ -1,6 +1,7 @@
 package de.tblsoft.search.pipeline.filter;
 
 import de.tblsoft.search.pipeline.PipelineContainer;
+import de.tblsoft.search.pipeline.PipelineValidation;
 
 /**
  * Created by tbl on 04.11.17.
@@ -25,5 +26,7 @@ public interface Filter {
     boolean isActive();
 
     StringBuilder print(String indent);
+
+    PipelineValidation validate(PipelineValidation pipelineValidation);
 
 }
