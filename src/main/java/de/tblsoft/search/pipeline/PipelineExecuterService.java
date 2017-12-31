@@ -31,8 +31,10 @@ public class PipelineExecuterService {
             failOnError(pipelineContainer);
             try {
                 filter.start();
-                if(filter.isActive()) {
+                if(filter.isActive() && pipelineContainer.isFilterActive(filter.getId())) {
                     pipelineContainer = filter.filter(pipelineContainer);
+                } else {
+                    LOG.debug("The filter: " + filter.getId() + " is not active.");
                 }
                 LOG.debug("The filter: " + filter.getId() + " took: " + filter.getCurrentTime() + " ms.");
             } catch (Exception e) {

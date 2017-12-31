@@ -25,6 +25,8 @@ public class PipelineContainer {
         this.response = response;
     }
 
+    private List<String> notActiveFilters = new ArrayList<>();
+
     private boolean success = true;
 
     private StringBuilder message = new StringBuilder();
@@ -151,6 +153,18 @@ public class PipelineContainer {
 
     public void setFailOnError(boolean failOnError) {
         this.failOnError = failOnError;
+    }
+
+    public void deactivateFilter(String filterId) {
+        notActiveFilters.add(filterId);
+    }
+
+    public void activateFilter(String filterId) {
+        notActiveFilters.remove(filterId);
+    }
+
+    public boolean isFilterActive(String filterId) {
+        return !notActiveFilters.contains(filterId);
     }
 
     @Override
