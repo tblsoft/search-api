@@ -21,6 +21,11 @@ public class SolrParameterQueryTransformer implements QueryTransformerIF {
         SolrQuery solrQuery = new SolrQuery();
 
         Map<String, String> replaceMap = RequestParser.getRequestParameter(pipelineContainer);
+        for(Map.Entry<String, String> param :pipelineContainer.getParameters().entrySet()) {
+            replaceMap.put("param." + param.getKey(), param.getValue());
+        }
+
+
         StrSubstitutor strSubstitutor = new StrSubstitutor(replaceMap);
 
         for(Map.Entry<String, List<String>> parameter: parameters.entrySet()) {

@@ -25,6 +25,8 @@ public class PipelineContainer {
         this.response = response;
     }
 
+    private Map<String, String> parameter = new HashMap<>();
+
     private List<String> notActiveFilters = new ArrayList<>();
 
     private boolean success = true;
@@ -165,6 +167,18 @@ public class PipelineContainer {
 
     public boolean isFilterActive(String filterId) {
         return !notActiveFilters.contains(filterId);
+    }
+
+    public void setParameter(String key, String value) {
+        this.parameter.put(key,value);
+    }
+
+    public String getParameter(String key) {
+        return this.parameter.get(key);
+    }
+
+    public Map<String, String> getParameters() {
+        return this.parameter;
     }
 
     @Override
