@@ -47,7 +47,10 @@ public class PipelineExecuter {
         return this;
     }
 
-
+    public PipelineExecuter param(String key, String value) {
+        getPipelineContainer().setParameter(key, value);
+        return this;
+    }
 
     public PipelineContainer execute() throws PipelineContainerException, PipelineContainerDebugException {
         try {
