@@ -25,6 +25,11 @@ public class SolrFilterBuilder {
         return this;
     }
 
+    public SolrFilterBuilder id(String id) {
+        solrFilter.setId(id);
+        return this;
+    }
+
 
     public SolrFilterBuilder resultSetId(String resultSetId) {
         solrFilter.setResultSetId(resultSetId);
