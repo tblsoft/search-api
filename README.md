@@ -47,7 +47,6 @@ http://openjdk.java.net/projects/code-tools/jmh/
 
 ## Metrics
 - top n keywords
-- 
 
 
 ## License
